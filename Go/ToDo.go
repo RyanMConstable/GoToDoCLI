@@ -17,13 +17,23 @@ func main() {
 func IntakeParamaters() string {
 	//CREATING DIRECTORY
 	homeDirectory, _ := os.UserHomeDir()
-	defaultWorkingDirectory = homeDirectory + "/.todo"
+	defaultWorkingDirectory := homeDirectory + "/.todo"
+	defaultJsonFile := defaultWorkingDirectory + "/todo.json"
 
 	if _, err := os.Stat(defaultWorkingDirectory); os.IsNotExist(err) {
 		fmt.Println("Creating directory!")
 		os.Mkdir(defaultWorkingDirectory, 0o644)
 	}
 	//END CREATE DIRECTORY
+
+	//CREATE FILE IF NOT EXISTING
+	if _, err := os.Stat(defaultJsonFile); os.IsNotExist(err) {
+		fmt.Println("File doesn't exist!")
+		_, err := os.Create(defaultJsonFile)
+		if err != nil {
+			fmt.Println(err)
+		}
+	}
 
 	file := flag.String("file", "todo.json", "Storage location for todo information")
 
