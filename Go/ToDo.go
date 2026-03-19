@@ -3,16 +3,19 @@ package main
 import (
 	"flag"
 	"fmt"
-	"os"
+	"io"
 	"log"
-
-	tea "charm.land/bubbletea/v2"
+	"os"
 )
-
 
 func main() {
 	file := IntakeParamaters()
 	fmt.Println("Opening ToDo List At:", file)
+
+	//TMP
+	homeDir, _ := os.UserHomeDir()
+	fmt.Println("User home directory:", homeDir)
+	//TMP
 
 	ParseFile(file)
 }
@@ -27,15 +30,28 @@ func IntakeParamaters() string {
 	positionalArgs := flag.Args()
 	fmt.Println("Positional Args:", positionalArgs)
 
-	fmt.Println("END IntakeParameters\n")
+	fmt.Println("END IntakeParameters")
 	return *file
 }
 
 func ParseFile(path string) {
-	file, err := os.OpenFile(path, os.O_CREATE|os.O_WRONLY, 0644)
+	file, err := os.Open(path)
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	defer file.Close()
+
+	buf := make([]byte, 1024)
+
+	for {
+		data, err := file.Read(buf)
+
+		if err != nil && err != io.EOF {
+			panic(err)
+		}
+		if data == 0 {
+			break
+		}
+		fmt.Printf("%s\n", string(buf[:data]))
+	}
 }
