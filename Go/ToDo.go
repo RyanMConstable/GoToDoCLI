@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-	"io"
 	"log"
 	"os"
 )
@@ -12,15 +11,20 @@ func main() {
 	file := IntakeParamaters()
 	fmt.Println("Opening ToDo List At:", file)
 
-	//TMP
-	homeDir, _ := os.UserHomeDir()
-	fmt.Println("User home directory:", homeDir)
-	//TMP
-
 	ParseFile(file)
 }
 
 func IntakeParamaters() string {
+	//CREATING DIRECTORY
+	homeDirectory, _ := os.UserHomeDir()
+	defaultWorkingDirectory = homeDirectory + "/.todo"
+
+	if _, err := os.Stat(defaultWorkingDirectory); os.IsNotExist(err) {
+		fmt.Println("Creating directory!")
+		os.Mkdir(defaultWorkingDirectory, 0o644)
+	}
+	//END CREATE DIRECTORY
+
 	file := flag.String("file", "todo.json", "Storage location for todo information")
 
 	flag.Parse()
@@ -40,18 +44,4 @@ func ParseFile(path string) {
 		log.Fatal(err)
 	}
 	defer file.Close()
-
-	buf := make([]byte, 1024)
-
-	for {
-		data, err := file.Read(buf)
-
-		if err != nil && err != io.EOF {
-			panic(err)
-		}
-		if data == 0 {
-			break
-		}
-		fmt.Printf("%s\n", string(buf[:data]))
-	}
 }
