@@ -22,18 +22,20 @@ func IntakeParamaters() string {
 
 	if _, err := os.Stat(defaultWorkingDirectory); os.IsNotExist(err) {
 		fmt.Println("Creating directory!")
-		os.Mkdir(defaultWorkingDirectory, 0o644)
+		os.Mkdir(defaultWorkingDirectory, 0o744)
 	}
 	//END CREATE DIRECTORY
 
 	//CREATE FILE IF NOT EXISTING
-	if _, err := os.Stat(defaultJsonFile); os.IsNotExist(err) {
+	if _, err := os.Stat(defaultJsonFile); err != nil {
 		fmt.Println("File doesn't exist!")
-		_, err := os.Create(defaultJsonFile)
+		f, err := os.Create(defaultJsonFile)
+		defer f.Close()
 		if err != nil {
 			fmt.Println(err)
 		}
 	}
+	//END FILE CREATION
 
 	file := flag.String("file", "todo.json", "Storage location for todo information")
 
