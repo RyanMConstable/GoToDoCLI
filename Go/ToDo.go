@@ -8,13 +8,11 @@ import (
 )
 
 func main() {
-	file := IntakeParamaters()
-	fmt.Println("Opening ToDo List At:", file)
-
+	file := Setup()
 	ParseFile(file)
 }
 
-func IntakeParamaters() string {
+func Setup() string {
 	//CREATING DIRECTORY
 	homeDirectory, _ := os.UserHomeDir()
 	defaultWorkingDirectory := homeDirectory + "/.todo"
@@ -28,19 +26,11 @@ func IntakeParamaters() string {
 
 	//CREATE FILE IF NOT EXISTING
 	if _, err := os.Stat(defaultJsonFile); err != nil {
-		fmt.Println("File doesn't exist!")
-		f, err := os.Create(defaultJsonFile)
-		defer f.Close()
-		if err != nil {
-			fmt.Println(err)
-		}
-
 		data := []byte(`{"tasks": []}`)
 		err = os.WriteFile(defaultJsonFile, data, 0644)
 		if err != nil {
 			log.Fatal(err)
 		}
-		defer f.Close()
 	}
 	//END FILE CREATION
 
@@ -48,12 +38,11 @@ func IntakeParamaters() string {
 
 	flag.Parse()
 
-	fmt.Println("File Path:", *file)
-
 	positionalArgs := flag.Args()
-	fmt.Println("Positional Args:", positionalArgs)
+	if len(positionalArgs) != 0 {
+		fmt.Println("Args given")
+	}
 
-	fmt.Println("END IntakeParameters")
 	return *file
 }
 
@@ -62,5 +51,6 @@ func ParseFile(path string) {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	defer file.Close()
 }
