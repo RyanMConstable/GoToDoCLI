@@ -34,6 +34,13 @@ func IntakeParamaters() string {
 		if err != nil {
 			fmt.Println(err)
 		}
+
+		data := []byte(`{"tasks": []}`)
+		err = os.WriteFile(defaultJsonFile, data, 0644)
+		if err != nil {
+			log.Fatal(err)
+		}
+		defer f.Close()
 	}
 	//END FILE CREATION
 
