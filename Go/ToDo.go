@@ -47,6 +47,11 @@ func main() {
 		WriteJson(tasks, file)
 	}
 
+	if flags.completed {
+		CompleteTask(&tasks, flags, flagvalues)
+		WriteJson(tasks, file)
+	}
+
 	fmt.Println(tasks)
 }
 
@@ -153,6 +158,21 @@ func AddTask(tasks *Tasks, flags Flags, flagvalues FlagValues) {
 	newTask.Name = flagvalues.name
 
 	tasks.Tasks = append(tasks.Tasks, newTask)
+}
+
+func CompleteTask(tasks *Tasks, flags Flags, flagvalues FlagValues) {
+	found := false
+	for i, value := range tasks.Tasks {
+		if flagvalues.name == value.Name {
+			tasks.Tasks[i].Completed = true
+			found = true
+			break
+		}
+	}
+
+	if !found {
+		fmt.Println("Task name does not exist")
+	}
 }
 
 func WriteJson(tasks Tasks, file string) error {
