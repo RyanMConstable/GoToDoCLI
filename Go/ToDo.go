@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"flag"
 	"fmt"
 	"io"
 	"log"
@@ -20,12 +21,63 @@ type Task struct {
 	DueDate       string `json:"duedate"`
 }
 
+type Flags struct {
+	add     bool
+	duedate bool
+}
+
+type FlagValues struct {
+	name    string
+	duedate string
+}
+
 func main() {
 	file := Setup()
 
 	//Function to read the file and create a slice of slices to hold the task information
 	tasks := ParseFile(file)
-	fmt.Println(tasks)
+
+	//SET FLAG STRUCTS
+	flags, flagvalues := SetFlags()
+
+	//MODIFY JSON STRUCTS
+	if flags.add {
+		AddTask(&tasks, flags, flagvalues)
+	}
+}
+
+func SetFlags() (Flags, FlagValues) {
+	var flags Flags
+	var flagvalues FlagValues
+
+	flagAdd := flag.Bool("add", false, "Add a task")
+	flagName := flag.String("name", "", "Name of the task")
+	flagDuedate := flag.String("duedate", "", "Date the task is due")
+
+	flag.Parse()
+
+	flags.add = *flagAdd
+	flagvalues.name = *flagName
+	flagvalues.duedate = *flagDuedate
+
+	flagSet := make(map[string]bool)
+	flag.Visit(func(f *flag.Flag) {
+		flagSet[f.Name] = true
+	})
+
+	if flagSet["add"] {
+		if flagSet["name"] == false {
+			fmt.Println("--name is required in conjunction with the --add flag")
+			os.Exit(1)
+		}
+		if flagSet["duedate"] {
+			flags.duedate = true
+		}
+	} else {
+		flags.add = false
+	}
+
+	return flags, flagvalues
 }
 
 func Setup() string {
@@ -72,4 +124,15 @@ func ParseFile(file string) Tasks {
 	}
 
 	return tasks
+}
+
+func AddTask(tasks *Tasks, flags Flags, flagvalues FlagValues) {
+	var newTask Task
+
+	if flags.duedate {
+		newTask.DueDate = flagvalues.duedate
+	}
+	newTask.Name = flagvalues.name
+
+	tasks.Tasks = append(tasks.Tasks, newTask)
 }
