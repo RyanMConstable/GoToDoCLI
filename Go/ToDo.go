@@ -1,22 +1,37 @@
 package main
 
 import (
-	"flag"
+	"encoding/json"
 	"fmt"
+	"io"
 	"log"
 	"os"
 )
 
+type Tasks struct {
+	Tasks []Task `json:"tasks"`
+}
+
+type Task struct {
+	Name          string `json:"name"`
+	Completed     bool   `json:"completed"`
+	DateCreated   string `json:"datecreated"`
+	DateCompleted string `json:"datecompleted"`
+	DueDate       string `json:"duedate"`
+}
+
 func main() {
 	file := Setup()
-	ParseFile(file)
+
+	//Function to read the file and create a slice of slices to hold the task information
+	tasks := ParseFile(file)
+	fmt.Println(tasks)
 }
 
 func Setup() string {
 	//CREATING DIRECTORY
-	homeDirectory, _ := os.UserHomeDir()
-	defaultWorkingDirectory := homeDirectory + "/.todo"
-	defaultJsonFile := defaultWorkingDirectory + "/todo.json"
+	defaultWorkingDirectory := ".todo"
+	defaultJsonFile := ".todo/todo.json"
 
 	if _, err := os.Stat(defaultWorkingDirectory); os.IsNotExist(err) {
 		fmt.Println("Creating directory!")
@@ -34,23 +49,27 @@ func Setup() string {
 	}
 	//END FILE CREATION
 
-	file := flag.String("file", "todo.json", "Storage location for todo information")
-
-	flag.Parse()
-
-	positionalArgs := flag.Args()
-	if len(positionalArgs) != 0 {
-		fmt.Println("Args given")
-	}
-
-	return *file
+	return defaultJsonFile
 }
 
-func ParseFile(path string) {
-	file, err := os.Open(path)
+func ParseFile(file string) Tasks {
+	jsonFile, err := os.Open(file)
+
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
+	}
+	defer jsonFile.Close()
+
+	byteValue, err := io.ReadAll(jsonFile)
+	if err != nil {
+		fmt.Println("Error reading file:", err)
 	}
 
-	defer file.Close()
+	var tasks Tasks
+	err = json.Unmarshal(byteValue, &tasks)
+	if err != nil {
+		fmt.Println("Error unmarshalling JSON:", err)
+	}
+
+	return tasks
 }
