@@ -85,8 +85,9 @@ func SetFlags() (Flags, FlagValues) {
 
 func Setup() string {
 	//CREATING DIRECTORY
-	defaultWorkingDirectory := ".todo"
-	defaultJsonFile := ".todo/todo.json"
+	homeDirectory, _ := os.UserHomeDir()
+	defaultWorkingDirectory := homeDirectory + "/.todo"
+	defaultJsonFile := homeDirectory + "/.todo/todo.json"
 
 	if _, err := os.Stat(defaultWorkingDirectory); os.IsNotExist(err) {
 		fmt.Println("Creating directory!")
