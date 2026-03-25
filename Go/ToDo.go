@@ -52,7 +52,7 @@ func main() {
 		WriteJson(tasks, file)
 	}
 
-	fmt.Println(tasks)
+	ShowTasks(tasks)
 }
 
 func SetFlags() (Flags, FlagValues) {
@@ -178,4 +178,10 @@ func WriteJson(tasks Tasks, file string) error {
 		return err
 	}
 	return os.WriteFile(file, data, 0644)
+}
+
+func ShowTasks(tasks Tasks) {
+	for _, value := range tasks.Tasks {
+		fmt.Println(value)
+	}
 }
