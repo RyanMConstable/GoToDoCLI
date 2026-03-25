@@ -22,8 +22,9 @@ type Task struct {
 }
 
 type Flags struct {
-	add     bool
-	duedate bool
+	add       bool
+	duedate   bool
+	completed bool
 }
 
 type FlagValues struct {
@@ -56,12 +57,14 @@ func SetFlags() (Flags, FlagValues) {
 	flagAdd := flag.Bool("add", false, "Add a task")
 	flagName := flag.String("name", "", "Name of the task")
 	flagDuedate := flag.String("duedate", "", "Date the task is due")
+	flagCompleted := flag.Bool("completed", false, "Date the task is due")
 
 	flag.Parse()
 
 	flags.add = *flagAdd
 	flagvalues.name = *flagName
 	flagvalues.duedate = *flagDuedate
+	flags.completed = *flagCompleted
 
 	flagSet := make(map[string]bool)
 	flag.Visit(func(f *flag.Flag) {
@@ -76,8 +79,19 @@ func SetFlags() (Flags, FlagValues) {
 		if flagSet["duedate"] {
 			flags.duedate = true
 		}
+		if flagSet["completed"] {
+			fmt.Println("Cannot use completed and add in the same command")
+			os.Exit(1)
+		}
 	} else {
 		flags.add = false
+	}
+
+	if flagSet["completed"] {
+		if flagSet["name"] == false {
+			fmt.Println("--name is required in conjunction with the --completed flag")
+			os.Exit(1)
+		}
 	}
 
 	return flags, flagvalues
