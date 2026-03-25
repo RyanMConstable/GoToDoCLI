@@ -43,7 +43,10 @@ func main() {
 	//MODIFY JSON STRUCTS
 	if flags.add {
 		AddTask(&tasks, flags, flagvalues)
+		WriteJson(tasks, file)
 	}
+
+	fmt.Println(tasks)
 }
 
 func SetFlags() (Flags, FlagValues) {
@@ -135,4 +138,12 @@ func AddTask(tasks *Tasks, flags Flags, flagvalues FlagValues) {
 	newTask.Name = flagvalues.name
 
 	tasks.Tasks = append(tasks.Tasks, newTask)
+}
+
+func WriteJson(tasks Tasks, file string) error {
+	data, err := json.Marshal(tasks)
+	if err != nil {
+		return err
+	}
+	return os.WriteFile(file, data, 0644)
 }
