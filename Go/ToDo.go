@@ -52,17 +52,22 @@ func main() {
 		WriteJson(tasks, file)
 	}
 
-	ShowTasks(tasks)
+	fields := []string{"Name", "Completed", "Date Created", "Date Completed", "Due Date"}
+
+	ShowTasks(tasks, fields)
+
+	fmt.Println(tasks)
 }
 
 func SetFlags() (Flags, FlagValues) {
 	var flags Flags
 	var flagvalues FlagValues
 
+	_ = *flag.Bool("help", false, "Show Commands")
 	flagAdd := flag.Bool("add", false, "Add a task")
 	flagName := flag.String("name", "", "Name of the task")
 	flagDuedate := flag.String("duedate", "", "Date the task is due")
-	flagCompleted := flag.String("completed", "", "Date the task is due")
+	flagCompleted := flag.String("completed", "", "If the task is completed or not")
 
 	flag.Parse()
 
@@ -74,6 +79,11 @@ func SetFlags() (Flags, FlagValues) {
 	flag.Visit(func(f *flag.Flag) {
 		flagSet[f.Name] = true
 	})
+
+	if flagSet["help"] {
+		fmt.Println("Help")
+		os.Exit(1)
+	}
 
 	if flagSet["add"] {
 		if flagSet["name"] == false {
@@ -180,8 +190,30 @@ func WriteJson(tasks Tasks, file string) error {
 	return os.WriteFile(file, data, 0644)
 }
 
-func ShowTasks(tasks Tasks) {
-	for _, value := range tasks.Tasks {
-		fmt.Println(value)
+func ShowTasks(tasks Tasks, columnNames []string) {
+	longestValues := map[string]int{}
+
+	for _, columnName := range columnNames {
+		longestValues[columnName] = len(columnName) + 2
+		for _, value := range tasks.Tasks {
+			switch columnName {
+			case "Name":
+				if longestValues[columnName] < len(value.Name) {
+					longestValues[columnName] = len(value.Name)
+				}
+			case "Date Created":
+				if longestValues[columnName] < len(value.DateCreated) {
+					longestValues[columnName] = len(value.DateCreated)
+				}
+			case "Date Completed":
+				if longestValues[columnName] < len(value.DateCompleted) {
+					longestValues[columnName] = len(value.DateCompleted)
+				}
+			case "Due Date":
+				if longestValues[columnName] < len(value.DueDate) {
+					longestValues[columnName] = len(value.DueDate)
+				}
+			}
+		}
 	}
 }
