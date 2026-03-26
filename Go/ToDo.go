@@ -7,6 +7,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"strings"
 )
 
 type Tasks struct {
@@ -216,4 +217,14 @@ func ShowTasks(tasks Tasks, columnNames []string) {
 			}
 		}
 	}
+
+	lineLength := 0
+	headerLine := "|"
+	for k, value := range longestValues {
+		lineLength += (value + 1)
+
+		value -= len(k)
+		headerLine += fmt.Sprintf("%v%v%v|", strings.Repeat(" ", value/2), k, strings.Repeat(" ", value/2))
+	}
+
 }
