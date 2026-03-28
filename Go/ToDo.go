@@ -161,6 +161,8 @@ func AddTask(tasks *Tasks, flags Flags, flagvalues FlagValues) {
 
 	if flags.duedate {
 		newTask.DueDate = flagvalues.duedate
+	} else {
+		newTask.DueDate = "----"
 	}
 	newTask.Name = flagvalues.name
 
