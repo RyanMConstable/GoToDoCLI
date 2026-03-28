@@ -196,6 +196,10 @@ func WriteJson(tasks Tasks, file string) error {
 }
 
 func ShowTasks(tasks Tasks, columnNames []string) {
+	if len(tasks.Tasks) <= 0 {
+		return
+	}
+
 	longestValues := map[string]int{}
 
 	for _, columnName := range columnNames {
