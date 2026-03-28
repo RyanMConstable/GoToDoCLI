@@ -67,7 +67,7 @@ func SetFlags() (Flags, FlagValues) {
 	flagAdd := flag.Bool("add", false, "Add a task")
 	flagName := flag.String("name", "", "Name of the task")
 	flagDuedate := flag.String("duedate", "", "Date the task is due")
-	flagCompleted := flag.String("completed", "", "If the task is completed or not")
+	flagCompleted := flag.String("complete", "", "If the task is completed or not")
 
 	flag.Parse()
 
@@ -101,7 +101,7 @@ func SetFlags() (Flags, FlagValues) {
 		flags.add = false
 	}
 
-	if flagSet["completed"] {
+	if flagSet["complete"] {
 		flags.completed = true
 		flagvalues.name = *flagCompleted
 	}
