@@ -93,7 +93,7 @@ func SetFlags() (Flags, FlagValues) {
 		if flagSet["duedate"] {
 			flags.duedate = true
 		}
-		if flagSet["completed"] {
+		if flagSet["complete"] {
 			fmt.Println("Cannot use completed and add in the same command")
 			os.Exit(1)
 		}
