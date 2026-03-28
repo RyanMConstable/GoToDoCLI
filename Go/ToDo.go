@@ -8,6 +8,7 @@ import (
 	"log"
 	"os"
 	"strings"
+	"time"
 )
 
 type Tasks struct {
@@ -163,6 +164,10 @@ func AddTask(tasks *Tasks, flags Flags, flagvalues FlagValues) {
 	}
 	newTask.Name = flagvalues.name
 
+	//TIME
+	currentTime := time.Now().Format("2006-01-02")
+	newTask.DateCreated = currentTime
+
 	tasks.Tasks = append(tasks.Tasks, newTask)
 }
 
@@ -171,6 +176,7 @@ func CompleteTask(tasks *Tasks, flags Flags, flagvalues FlagValues) {
 	for i, value := range tasks.Tasks {
 		if flagvalues.name == value.Name {
 			tasks.Tasks[i].Completed = true
+			tasks.Tasks[i].DateCompleted = time.Now().Format("2006-01-02")
 			found = true
 			break
 		}
