@@ -14,6 +14,7 @@ func SetFlags() (Flags, FlagValues) {
 	var flagName string
 	var flagDuedate string
 	var flagCompleted string
+	var flagRemove string
 
 	_ = *flag.Bool("help", false, "Show Commands")
 
@@ -28,6 +29,9 @@ func SetFlags() (Flags, FlagValues) {
 
 	flag.StringVar(&flagCompleted, "complete", "", "If the task is completed or not")
 	flag.StringVar(&flagCompleted, "c", "", "If the task is completed or not")
+
+	flag.StringVar(&flagRemove, "remove", "", "Remove task by name")
+	flag.StringVar(&flagRemove, "r", "", "Remove task by name")
 
 	flag.Parse()
 
@@ -64,6 +68,11 @@ func SetFlags() (Flags, FlagValues) {
 	if flagSet["complete"] || flagSet["c"] {
 		flags.completed = true
 		flagvalues.name = flagCompleted
+	}
+
+	if flagSet["remove"] || flagSet["r"] {
+		flags.remove = true
+		flagvalues.name = flagRemove
 	}
 
 	return flags, flagvalues

@@ -18,6 +18,7 @@ type Flags struct {
 	add       bool
 	duedate   bool
 	completed bool
+	remove    bool
 }
 
 type FlagValues struct {
@@ -40,6 +41,10 @@ func main() {
 	if flags.completed {
 		CompleteTask(&tasks, flags, flagvalues)
 		WriteJson(tasks, file)
+	}
+
+	if flags.remove {
+		RemoveTask(&tasks, flags, flagvalues)
 	}
 
 	fields := []string{"Name", "Completed", "Date Created", "Date Completed", "Due Date"}

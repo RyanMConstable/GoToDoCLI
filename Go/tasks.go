@@ -37,3 +37,12 @@ func CompleteTask(tasks *Tasks, flags Flags, flagvalues FlagValues) {
 		fmt.Println("Task name does not exist")
 	}
 }
+
+func RemoveTask(tasks *Tasks, flags Flags, flagvalues FlagValues) {
+	for i, value := range tasks.Tasks {
+		if value.Name == flagvalues.name {
+			fmt.Println("Removing!")
+		}
+		fmt.Println(i, value)
+	}
+}
