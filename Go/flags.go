@@ -16,8 +16,6 @@ func SetFlags() (Flags, FlagValues) {
 	var flagCompleted string
 	var flagRemove string
 
-	_ = *flag.Bool("help", false, "Show Commands")
-
 	flag.BoolVar(&flagAdd, "add", false, "Add a task")
 	flag.BoolVar(&flagAdd, "a", false, "Short version of add")
 
@@ -43,11 +41,6 @@ func SetFlags() (Flags, FlagValues) {
 	flag.Visit(func(f *flag.Flag) {
 		flagSet[f.Name] = true
 	})
-
-	if flagSet["help"] || flagSet["h"] {
-		fmt.Println("Help")
-		os.Exit(1)
-	}
 
 	if flagSet["add"] || flagSet["a"] {
 		if flagSet["name"] == false && flagSet["n"] == false {
