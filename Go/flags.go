@@ -19,8 +19,8 @@ func SetFlags() (Flags, FlagValues) {
 	flag.BoolVar(&flagAdd, "add", false, "Add a task")
 	flag.BoolVar(&flagAdd, "a", false, "Short version of add")
 
-	flag.StringVar(&flagName, "name", "", "Name of the task")
 	flag.StringVar(&flagName, "n", "", "Short version of name")
+	flag.StringVar(&flagName, "name", "", "Name of the task")
 
 	flag.StringVar(&flagDuedate, "duedate", "", "Date the task is due")
 	flag.StringVar(&flagDuedate, "d", "", "Short version of duedate")
@@ -30,6 +30,15 @@ func SetFlags() (Flags, FlagValues) {
 
 	flag.StringVar(&flagRemove, "remove", "", "Remove task by name")
 	flag.StringVar(&flagRemove, "r", "", "Short version of remove")
+
+	flag.Usage = func() {
+		fmt.Println("Usage of todo:")
+		fmt.Println("  -add, -a          Add a task")
+		fmt.Println("  -name, -n         Name of the task")
+		fmt.Println("  -complete, -c     Mark a task complete")
+		fmt.Println("  -duedate, -d      Date the task is due")
+		fmt.Println("  -remove, -r       Remove a task by name")
+	}
 
 	flag.Parse()
 
