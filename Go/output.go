@@ -51,11 +51,9 @@ func ShowTasks(tasks Tasks, columnNames []string) {
 		lineValues[k] = fmt.Sprintf("%v%v%v|", strings.Repeat(" ", leftGap), k, strings.Repeat(" ", rightGap))
 	}
 
-	//PRINT OUT HEADER TABLE
 	fmt.Println(strings.Repeat("=", lineLength))
 	fmt.Println(fmt.Sprintf("|%v%v%v%v%v", lineValues["Name"], lineValues["Due Date"], lineValues["Date Created"], lineValues["Date Completed"], lineValues["Completed"]))
 	fmt.Println(strings.Repeat("=", lineLength))
-	//END HEADER TABLE
 
 	for _, task := range tasks.Tasks {
 		taskLine := ""

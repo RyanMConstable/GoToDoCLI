@@ -7,7 +7,6 @@ import (
 )
 
 func Setup() string {
-	//CREATING DIRECTORY
 	homeDirectory, _ := os.UserHomeDir()
 	defaultWorkingDirectory := homeDirectory + "/.todo"
 	defaultJsonFile := homeDirectory + "/.todo/todo.json"
@@ -16,9 +15,7 @@ func Setup() string {
 		fmt.Println("Creating directory!")
 		os.Mkdir(defaultWorkingDirectory, 0o744)
 	}
-	//END CREATE DIRECTORY
 
-	//CREATE FILE IF NOT EXISTING
 	if _, err := os.Stat(defaultJsonFile); err != nil {
 		data := []byte(`{"tasks": []}`)
 		err = os.WriteFile(defaultJsonFile, data, 0644)
@@ -26,7 +23,6 @@ func Setup() string {
 			log.Fatal(err)
 		}
 	}
-	//END FILE CREATION
 
 	return defaultJsonFile
 }

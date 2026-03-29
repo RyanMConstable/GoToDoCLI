@@ -28,13 +28,10 @@ type FlagValues struct {
 func main() {
 	file := Setup()
 
-	//Function to read the file and create a slice of slices to hold the task information
 	tasks := ParseFile(file)
 
-	//SET FLAG STRUCTS
 	flags, flagvalues := SetFlags()
 
-	//MODIFY JSON STRUCTS
 	if flags.add {
 		AddTask(&tasks, flags, flagvalues)
 		WriteJson(tasks, file)
