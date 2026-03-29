@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"flag"
 	"fmt"
 	"io"
 	"log"
@@ -57,69 +56,6 @@ func main() {
 	fields := []string{"Name", "Completed", "Date Created", "Date Completed", "Due Date"}
 
 	ShowTasks(tasks, fields)
-}
-
-func SetFlags() (Flags, FlagValues) {
-	var flags Flags
-	var flagvalues FlagValues
-
-	var flagAdd bool
-	var flagName string
-	var flagDuedate string
-	var flagCompleted string
-
-	_ = *flag.Bool("help", false, "Show Commands")
-
-	flag.BoolVar(&flagAdd, "add", false, "Add a task (long)")
-	flag.BoolVar(&flagAdd, "a", false, "Add a task (short)")
-
-	flag.StringVar(&flagName, "name", "", "Name of the task (long)")
-	flag.StringVar(&flagName, "n", "", "Name of the task (short)")
-
-	flag.StringVar(&flagDuedate, "duedate", "", "Date the task is due")
-	flag.StringVar(&flagDuedate, "d", "", "Date the task is due")
-
-	flag.StringVar(&flagCompleted, "complete", "", "If the task is completed or not")
-	flag.StringVar(&flagCompleted, "c", "", "If the task is completed or not")
-
-	flag.Parse()
-
-	flags.add = flagAdd
-	flagvalues.name = flagName
-	flagvalues.duedate = flagDuedate
-
-	flagSet := make(map[string]bool)
-	flag.Visit(func(f *flag.Flag) {
-		flagSet[f.Name] = true
-	})
-
-	if flagSet["help"] || flagSet["h"] {
-		fmt.Println("Help")
-		os.Exit(1)
-	}
-
-	if flagSet["add"] || flagSet["a"] {
-		if flagSet["name"] == false && flagSet["n"] == false {
-			fmt.Println("--name is required in conjunction with the --add flag")
-			os.Exit(1)
-		}
-		if flagSet["duedate"] || flagSet["d"] {
-			flags.duedate = true
-		}
-		if flagSet["complete"] || flagSet["c"] {
-			fmt.Println("Cannot use completed and add in the same command")
-			os.Exit(1)
-		}
-	} else {
-		flags.add = false
-	}
-
-	if flagSet["complete"] || flagSet["c"] {
-		flags.completed = true
-		flagvalues.name = flagCompleted
-	}
-
-	return flags, flagvalues
 }
 
 func Setup() string {
