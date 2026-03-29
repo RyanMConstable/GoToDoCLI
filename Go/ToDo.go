@@ -63,37 +63,50 @@ func SetFlags() (Flags, FlagValues) {
 	var flags Flags
 	var flagvalues FlagValues
 
+	var flagAdd bool
+	var flagName string
+	var flagDuedate string
+	var flagCompleted string
+
 	_ = *flag.Bool("help", false, "Show Commands")
-	flagAdd := flag.Bool("add", false, "Add a task")
-	flagName := flag.String("name", "", "Name of the task")
-	flagDuedate := flag.String("duedate", "", "Date the task is due")
-	flagCompleted := flag.String("complete", "", "If the task is completed or not")
+
+	flag.BoolVar(&flagAdd, "add", false, "Add a task (long)")
+	flag.BoolVar(&flagAdd, "a", false, "Add a task (short)")
+
+	flag.StringVar(&flagName, "name", "", "Name of the task (long)")
+	flag.StringVar(&flagName, "n", "", "Name of the task (short)")
+
+	flag.StringVar(&flagDuedate, "duedate", "", "Date the task is due")
+	flag.StringVar(&flagDuedate, "d", "", "Date the task is due")
+
+	flag.StringVar(&flagCompleted, "complete", "", "If the task is completed or not")
+	flag.StringVar(&flagCompleted, "c", "", "If the task is completed or not")
 
 	flag.Parse()
 
-	flags.add = *flagAdd
-	flagvalues.name = *flagName
-	flagvalues.duedate = *flagDuedate
+	flags.add = flagAdd
+	flagvalues.name = flagName
+	flagvalues.duedate = flagDuedate
 
 	flagSet := make(map[string]bool)
 	flag.Visit(func(f *flag.Flag) {
 		flagSet[f.Name] = true
 	})
 
-	if flagSet["help"] {
+	if flagSet["help"] || flagSet["h"] {
 		fmt.Println("Help")
 		os.Exit(1)
 	}
 
-	if flagSet["add"] {
-		if flagSet["name"] == false {
+	if flagSet["add"] || flagSet["a"] {
+		if flagSet["name"] == false && flagSet["n"] == false {
 			fmt.Println("--name is required in conjunction with the --add flag")
 			os.Exit(1)
 		}
-		if flagSet["duedate"] {
+		if flagSet["duedate"] || flagSet["d"] {
 			flags.duedate = true
 		}
-		if flagSet["complete"] {
+		if flagSet["complete"] || flagSet["c"] {
 			fmt.Println("Cannot use completed and add in the same command")
 			os.Exit(1)
 		}
@@ -101,9 +114,9 @@ func SetFlags() (Flags, FlagValues) {
 		flags.add = false
 	}
 
-	if flagSet["complete"] {
+	if flagSet["complete"] || flagSet["c"] {
 		flags.completed = true
-		flagvalues.name = *flagCompleted
+		flagvalues.name = flagCompleted
 	}
 
 	return flags, flagvalues
