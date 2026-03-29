@@ -18,20 +18,20 @@ func SetFlags() (Flags, FlagValues) {
 
 	_ = *flag.Bool("help", false, "Show Commands")
 
-	flag.BoolVar(&flagAdd, "add", false, "Add a task (long)")
-	flag.BoolVar(&flagAdd, "a", false, "Add a task (short)")
+	flag.BoolVar(&flagAdd, "add", false, "Add a task")
+	flag.BoolVar(&flagAdd, "a", false, "Short version of add")
 
-	flag.StringVar(&flagName, "name", "", "Name of the task (long)")
-	flag.StringVar(&flagName, "n", "", "Name of the task (short)")
+	flag.StringVar(&flagName, "name", "", "Name of the task")
+	flag.StringVar(&flagName, "n", "", "Short version of name")
 
 	flag.StringVar(&flagDuedate, "duedate", "", "Date the task is due")
-	flag.StringVar(&flagDuedate, "d", "", "Date the task is due")
+	flag.StringVar(&flagDuedate, "d", "", "Short version of duedate")
 
-	flag.StringVar(&flagCompleted, "complete", "", "If the task is completed or not")
-	flag.StringVar(&flagCompleted, "c", "", "If the task is completed or not")
+	flag.StringVar(&flagCompleted, "complete", "", "Mark a task complete")
+	flag.StringVar(&flagCompleted, "c", "", "Short version of complete")
 
 	flag.StringVar(&flagRemove, "remove", "", "Remove task by name")
-	flag.StringVar(&flagRemove, "r", "", "Remove task by name")
+	flag.StringVar(&flagRemove, "r", "", "Short version of remove")
 
 	flag.Parse()
 
