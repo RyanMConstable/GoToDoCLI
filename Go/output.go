@@ -15,20 +15,29 @@ func ShowTasks(tasks Tasks, columnNames []string, flags Flags) {
 		for _, value := range tasks.Tasks {
 			switch columnName {
 			case "Name":
-				if longestValues[columnName] < len(value.Name)+2 {
-					longestValues[columnName] = len(value.Name) + 2
+				if value.Completed == false || flags.all == true {
+					if longestValues[columnName] < len(value.Name)+2 {
+						longestValues[columnName] = len(value.Name) + 2
+					}
 				}
+
 			case "Date Created":
-				if longestValues[columnName] < len(value.DateCreated)+2 {
-					longestValues[columnName] = len(value.DateCreated) + 2
+				if value.Completed == false || flags.all == true {
+					if longestValues[columnName] < len(value.DateCreated)+2 {
+						longestValues[columnName] = len(value.DateCreated) + 2
+					}
 				}
 			case "Date Completed":
-				if longestValues[columnName] < len(value.DateCompleted)+2 {
-					longestValues[columnName] = len(value.DateCompleted) + 2
+				if value.Completed == false || flags.all == true {
+					if longestValues[columnName] < len(value.DateCompleted)+2 {
+						longestValues[columnName] = len(value.DateCompleted) + 2
+					}
 				}
 			case "Due Date":
-				if longestValues[columnName] < len(value.DueDate)+2 {
-					longestValues[columnName] = len(value.DueDate) + 2
+				if value.Completed == false || flags.all == true {
+					if longestValues[columnName] < len(value.DueDate)+2 {
+						longestValues[columnName] = len(value.DueDate) + 2
+					}
 				}
 			}
 		}
