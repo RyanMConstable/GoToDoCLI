@@ -5,6 +5,11 @@ import (
 	"strings"
 )
 
+const (
+	reset = "\033[0m"
+	green = "\033[32m"
+)
+
 func ShowTasks(tasks Tasks, columnNames []string, flags Flags) {
 	tasksShown := 0
 
@@ -78,7 +83,11 @@ func ShowTasks(tasks Tasks, columnNames []string, flags Flags) {
 		if totalSpace%2 != 0 {
 			rightGap = numSideGap + 1
 		}
-		taskLine += fmt.Sprintf("|%v%v%v|", strings.Repeat(" ", leftGap), task.Name, strings.Repeat(" ", rightGap))
+		if task.Completed {
+			taskLine += fmt.Sprintf("|"+green+"%v%v%v"+reset+"|", strings.Repeat(" ", leftGap), task.Name, strings.Repeat(" ", rightGap))
+		} else {
+			taskLine += fmt.Sprintf("|%v%v%v|", strings.Repeat(" ", leftGap), task.Name, strings.Repeat(" ", rightGap))
+		}
 
 		totalSpace = longestValues["Due Date"] - len(task.DueDate)
 		numSideGap = totalSpace / 2
@@ -87,7 +96,11 @@ func ShowTasks(tasks Tasks, columnNames []string, flags Flags) {
 		if totalSpace%2 != 0 {
 			rightGap = numSideGap + 1
 		}
-		taskLine += fmt.Sprintf("%v%v%v|", strings.Repeat(" ", leftGap), task.DueDate, strings.Repeat(" ", rightGap))
+		if task.Completed {
+			taskLine += fmt.Sprintf(green+"%v%v%v"+reset+"|", strings.Repeat(" ", leftGap), task.DueDate, strings.Repeat(" ", rightGap))
+		} else {
+			taskLine += fmt.Sprintf("%v%v%v|", strings.Repeat(" ", leftGap), task.DueDate, strings.Repeat(" ", rightGap))
+		}
 
 		totalSpace = longestValues["Date Created"] - len(task.DateCreated)
 		numSideGap = totalSpace / 2
@@ -96,7 +109,11 @@ func ShowTasks(tasks Tasks, columnNames []string, flags Flags) {
 		if totalSpace%2 != 0 {
 			rightGap = numSideGap + 1
 		}
-		taskLine += fmt.Sprintf("%v%v%v|", strings.Repeat(" ", leftGap), task.DateCreated, strings.Repeat(" ", rightGap))
+		if task.Completed {
+			taskLine += fmt.Sprintf(green+"%v%v%v"+reset+"|", strings.Repeat(" ", leftGap), task.DateCreated, strings.Repeat(" ", rightGap))
+		} else {
+			taskLine += fmt.Sprintf("%v%v%v|", strings.Repeat(" ", leftGap), task.DateCreated, strings.Repeat(" ", rightGap))
+		}
 
 		totalSpace = longestValues["Date Completed"] - len(task.DateCompleted)
 		numSideGap = totalSpace / 2
@@ -105,7 +122,11 @@ func ShowTasks(tasks Tasks, columnNames []string, flags Flags) {
 		if totalSpace%2 != 0 {
 			rightGap = numSideGap + 1
 		}
-		taskLine += fmt.Sprintf("%v%v%v|", strings.Repeat(" ", leftGap), task.DateCompleted, strings.Repeat(" ", leftGap))
+		if task.Completed {
+			taskLine += fmt.Sprintf(green+"%v%v%v"+reset+"|", strings.Repeat(" ", leftGap), task.DateCompleted, strings.Repeat(" ", leftGap))
+		} else {
+			taskLine += fmt.Sprintf("%v%v%v|", strings.Repeat(" ", leftGap), task.DateCompleted, strings.Repeat(" ", leftGap))
+		}
 
 		totalSpace = longestValues["Completed"] - len(fmt.Sprintf("%v", task.Completed))
 		numSideGap = totalSpace / 2
@@ -114,13 +135,13 @@ func ShowTasks(tasks Tasks, columnNames []string, flags Flags) {
 		if totalSpace%2 != 0 {
 			rightGap = numSideGap + 1
 		}
-		taskLine += fmt.Sprintf("%v%v%v|", strings.Repeat(" ", leftGap), task.Completed, strings.Repeat(" ", rightGap))
-
 		if task.Completed {
-			fmt.Println(fmt.Sprintf("\033[32m%v\033[0m", taskLine))
+			taskLine += fmt.Sprintf(green+"%v%v%v"+reset+"|", strings.Repeat(" ", leftGap), task.Completed, strings.Repeat(" ", rightGap))
 		} else {
-			fmt.Println(taskLine)
+			taskLine += fmt.Sprintf("%v%v%v|", strings.Repeat(" ", leftGap), task.Completed, strings.Repeat(" ", rightGap))
 		}
+
+		fmt.Println(taskLine)
 	}
 
 	if tasksShown == 0 {
