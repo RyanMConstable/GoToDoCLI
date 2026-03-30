@@ -19,6 +19,7 @@ type Flags struct {
 	duedate   bool
 	completed bool
 	remove    bool
+	all       bool
 }
 
 type FlagValues struct {
@@ -49,5 +50,5 @@ func main() {
 
 	fields := []string{"Name", "Completed", "Date Created", "Date Completed", "Due Date"}
 
-	ShowTasks(tasks, fields)
+	ShowTasks(tasks, fields, flags)
 }

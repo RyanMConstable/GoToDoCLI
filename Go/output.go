@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-func ShowTasks(tasks Tasks, columnNames []string) {
+func ShowTasks(tasks Tasks, columnNames []string, flags Flags) {
 	if len(tasks.Tasks) <= 0 {
 		return
 	}
@@ -56,6 +56,9 @@ func ShowTasks(tasks Tasks, columnNames []string) {
 	fmt.Println(strings.Repeat("=", lineLength))
 
 	for _, task := range tasks.Tasks {
+		if flags.all == false && task.Completed == true {
+			continue
+		}
 		taskLine := ""
 		leftGap, rightGap := 0, 0
 		numSideGap := 0
