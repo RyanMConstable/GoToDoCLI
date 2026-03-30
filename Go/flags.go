@@ -10,7 +10,6 @@ func SetFlags() (Flags, FlagValues) {
 	var flagvalues FlagValues
 
 	var flagAdd string
-	var flagName string
 	var flagDuedate string
 	var flagCompleted string
 	var flagRemove string
@@ -21,8 +20,8 @@ func SetFlags() (Flags, FlagValues) {
 	flag.StringVar(&flagAdd, "add", "", "Add a task")
 	flag.StringVar(&flagAdd, "a", "", "Short version of add")
 
-	flag.StringVar(&flagName, "n", "", "Short version of name")
-	flag.StringVar(&flagName, "name", "", "Name of the task")
+	flag.StringVar(&flagvalues.name, "n", "", "Short version of name")
+	flag.StringVar(&flagvalues.name, "name", "", "Name of the task")
 
 	flag.StringVar(&flagDuedate, "duedate", "", "Date the task is due")
 	flag.StringVar(&flagDuedate, "d", "", "Short version of duedate")
@@ -45,7 +44,6 @@ func SetFlags() (Flags, FlagValues) {
 
 	flag.Parse()
 
-	flagvalues.name = flagName
 	flagvalues.duedate = flagDuedate
 
 	flagSet := make(map[string]bool)
