@@ -6,9 +6,7 @@ import (
 )
 
 func ShowTasks(tasks Tasks, columnNames []string, flags Flags) {
-	if len(tasks.Tasks) <= 0 {
-		return
-	}
+	tasksShown := 0
 
 	longestValues := map[string]int{}
 
@@ -59,6 +57,7 @@ func ShowTasks(tasks Tasks, columnNames []string, flags Flags) {
 		if flags.all == false && task.Completed == true {
 			continue
 		}
+		tasksShown += 1
 		taskLine := ""
 		leftGap, rightGap := 0, 0
 		numSideGap := 0
@@ -109,6 +108,10 @@ func ShowTasks(tasks Tasks, columnNames []string, flags Flags) {
 		taskLine += fmt.Sprintf("%v%v%v|", strings.Repeat(" ", leftGap), task.Completed, strings.Repeat(" ", rightGap))
 
 		fmt.Println(taskLine)
+	}
+
+	if tasksShown == 0 {
+		fmt.Println(fmt.Sprintf("|%v|", strings.Repeat(" ", lineLength-2)))
 	}
 
 	fmt.Println(strings.Repeat("=", lineLength))
