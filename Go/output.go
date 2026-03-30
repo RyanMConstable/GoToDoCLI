@@ -7,6 +7,9 @@ import (
 
 const (
 	reset = "\033[0m"
+
+	bold = "\033[1m"
+
 	green = "\033[32m"
 )
 
@@ -60,7 +63,7 @@ func ShowTasks(tasks Tasks, columnNames []string, flags Flags) {
 		if value%2 != 0 {
 			rightGap = (value / 2) + 1
 		}
-		lineValues[k] = fmt.Sprintf("%v%v%v|", strings.Repeat(" ", leftGap), k, strings.Repeat(" ", rightGap))
+		lineValues[k] = fmt.Sprintf(bold+"%v%v%v"+reset+"|", strings.Repeat(" ", leftGap), k, strings.Repeat(" ", rightGap))
 	}
 
 	fmt.Println(strings.Repeat("=", lineLength))
