@@ -116,7 +116,11 @@ func ShowTasks(tasks Tasks, columnNames []string, flags Flags) {
 		}
 		taskLine += fmt.Sprintf("%v%v%v|", strings.Repeat(" ", leftGap), task.Completed, strings.Repeat(" ", rightGap))
 
-		fmt.Println(taskLine)
+		if task.Completed {
+			fmt.Println(fmt.Sprintf("\033[32m%v\033[0m", taskLine))
+		} else {
+			fmt.Println(taskLine)
+		}
 	}
 
 	if tasksShown == 0 {
