@@ -1,0 +1,5 @@
+---
+#File defines configurations for the todo application
+
+#DB Connections, if the variable is set it will default to database no matter what. Only uncomment if you want a database connection. Otherwise a json file will be created locally.
+#DB_CONNECTION
