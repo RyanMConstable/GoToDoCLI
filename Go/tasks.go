@@ -21,6 +21,7 @@ func AddTask(tasks *Tasks, flags Flags) {
 	newTask.Name = flags.add
 	newTask.DueDate = duedate
 	newTask.DateCreated = currentTime
+	newTask.InProgress = false
 
 	tasks.Tasks = append(tasks.Tasks, newTask)
 }
