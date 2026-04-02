@@ -84,74 +84,13 @@ func ShowTasks(tasks Tasks, columnNames []string, flags Flags) {
 			continue
 		}
 		tasksShown += 1
-		taskLine := ""
-		leftGap, rightGap := 0, 0
-		numSideGap := 0
+		taskLine := Mauve + "|" + reset
 
-		totalSpace := longestValues["Name"] - len(task.Name)
-		numSideGap = totalSpace / 2
-		leftGap = numSideGap
-		rightGap = numSideGap
-		if totalSpace%2 != 0 {
-			rightGap = numSideGap + 1
-		}
-		if task.Completed {
-			taskLine += fmt.Sprintf(Mauve+"|"+SunlitClay+"%v%v%v"+reset+Mauve+"|"+reset, strings.Repeat(" ", leftGap), task.Name, strings.Repeat(" ", rightGap))
-		} else {
-			taskLine += fmt.Sprintf(Mauve+"|"+OliveLeaf+"%v%v%v"+reset+Mauve+"|"+reset, strings.Repeat(" ", leftGap), task.Name, strings.Repeat(" ", rightGap))
-		}
-
-		totalSpace = longestValues["Due Date"] - len(task.DueDate)
-		numSideGap = totalSpace / 2
-		leftGap = numSideGap
-		rightGap = numSideGap
-		if totalSpace%2 != 0 {
-			rightGap = numSideGap + 1
-		}
-		if task.Completed {
-			taskLine += fmt.Sprintf(SunlitClay+"%v%v%v"+reset+Mauve+"|"+reset, strings.Repeat(" ", leftGap), task.DueDate, strings.Repeat(" ", rightGap))
-		} else {
-			taskLine += fmt.Sprintf(OliveLeaf+"%v%v%v"+reset+Mauve+"|"+reset, strings.Repeat(" ", leftGap), task.DueDate, strings.Repeat(" ", rightGap))
-		}
-
-		totalSpace = longestValues["Date Created"] - len(task.DateCreated)
-		numSideGap = totalSpace / 2
-		leftGap = numSideGap
-		rightGap = numSideGap
-		if totalSpace%2 != 0 {
-			rightGap = numSideGap + 1
-		}
-		if task.Completed {
-			taskLine += fmt.Sprintf(SunlitClay+"%v%v%v"+reset+Mauve+"|"+reset, strings.Repeat(" ", leftGap), task.DateCreated, strings.Repeat(" ", rightGap))
-		} else {
-			taskLine += fmt.Sprintf(OliveLeaf+"%v%v%v"+reset+Mauve+"|"+reset, strings.Repeat(" ", leftGap), task.DateCreated, strings.Repeat(" ", rightGap))
-		}
-
-		totalSpace = longestValues["Date Completed"] - len(task.DateCompleted)
-		numSideGap = totalSpace / 2
-		leftGap = numSideGap
-		rightGap = numSideGap
-		if totalSpace%2 != 0 {
-			rightGap = numSideGap + 1
-		}
-		if task.Completed {
-			taskLine += fmt.Sprintf(SunlitClay+"%v%v%v"+reset+Mauve+"|"+reset, strings.Repeat(" ", leftGap), task.DateCompleted, strings.Repeat(" ", leftGap))
-		} else {
-			taskLine += fmt.Sprintf(OliveLeaf+"%v%v%v"+reset+Mauve+"|"+reset, strings.Repeat(" ", leftGap), task.DateCompleted, strings.Repeat(" ", leftGap))
-		}
-
-		totalSpace = longestValues["Completed"] - len(fmt.Sprintf("%v", task.Completed))
-		numSideGap = totalSpace / 2
-		leftGap = numSideGap
-		rightGap = numSideGap
-		if totalSpace%2 != 0 {
-			rightGap = numSideGap + 1
-		}
-		if task.Completed {
-			taskLine += fmt.Sprintf(SunlitClay+"%v%v%v"+reset+Mauve+"|"+reset, strings.Repeat(" ", leftGap), task.Completed, strings.Repeat(" ", rightGap))
-		} else {
-			taskLine += fmt.Sprintf(OliveLeaf+"%v%v%v"+reset+Mauve+"|"+reset, strings.Repeat(" ", leftGap), task.Completed, strings.Repeat(" ", rightGap))
-		}
+		taskLine += CalculateTaskLine(SunlitClay, OliveLeaf, Mauve, longestValues["Name"]-len(fmt.Sprintf("%v", task.Name)), task.Completed, task.Name)
+		taskLine += CalculateTaskLine(SunlitClay, OliveLeaf, Mauve, longestValues["Due Date"]-len(fmt.Sprintf("%v", task.DueDate)), task.Completed, task.DueDate)
+		taskLine += CalculateTaskLine(SunlitClay, OliveLeaf, Mauve, longestValues["Date Created"]-len(fmt.Sprintf("%v", task.DateCreated)), task.Completed, task.DateCreated)
+		taskLine += CalculateTaskLine(SunlitClay, OliveLeaf, Mauve, longestValues["Date Completed"]-len(fmt.Sprintf("%v", task.DateCompleted)), task.Completed, task.DateCompleted)
+		taskLine += CalculateTaskLine(SunlitClay, OliveLeaf, Mauve, longestValues["Completed"]-len(fmt.Sprintf("%v", task.Completed)), task.Completed, fmt.Sprintf("%v", task.Completed))
 
 		fmt.Println(taskLine)
 	}
@@ -161,4 +100,18 @@ func ShowTasks(tasks Tasks, columnNames []string, flags Flags) {
 	}
 
 	fmt.Println(strings.Repeat(Mauve+"="+reset, lineLength))
+}
+
+func CalculateTaskLine(completedColor string, wordColor string, borderColor string, totalSpace int, completed bool, value string) string {
+	numSideGap := totalSpace / 2
+	leftGap := numSideGap
+	rightGap := numSideGap
+	if totalSpace%2 != 0 {
+		rightGap = numSideGap + 1
+	}
+
+	if completed {
+		return fmt.Sprintf(completedColor+"%v%v%v"+reset+borderColor+"|"+reset, strings.Repeat(" ", leftGap), value, strings.Repeat(" ", rightGap))
+	}
+	return fmt.Sprintf(wordColor+"%v%v%v"+reset+borderColor+"|"+reset, strings.Repeat(" ", leftGap), value, strings.Repeat(" ", rightGap))
 }
