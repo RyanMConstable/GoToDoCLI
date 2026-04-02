@@ -49,3 +49,12 @@ func RemoveTask(tasks *Tasks, flags Flags) {
 		fmt.Println(i, value)
 	}
 }
+
+func MarkTaskInProgress(tasks *Tasks, flags Flags) {
+	for i, value := range tasks.Tasks {
+		if value.Name == flags.inprogress {
+			tasks.Tasks[i].InProgress = true
+			break
+		}
+	}
+}

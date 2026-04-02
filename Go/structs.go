@@ -10,6 +10,7 @@ type Task struct {
 	DateCreated   string `json:"datecreated"`
 	DateCompleted string `json:"datecompleted"`
 	DueDate       string `json:"duedate"`
+	InProgress    bool   `json:"inprogress"`
 }
 
 type Flags struct {
