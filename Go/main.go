@@ -23,6 +23,7 @@ func main() {
 
 	if flags.inprogress != "" {
 		MarkTaskInProgress(&tasks, flags)
+		WriteJson(tasks, file)
 	}
 
 	fields := []string{"Name", "Completed", "Date Created", "Date Completed", "Due Date"}
