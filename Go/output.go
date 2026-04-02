@@ -87,11 +87,11 @@ func ShowTasks(tasks Tasks, columnNames []string, flags Flags) {
 		tasksShown += 1
 		taskLine := Mauve + "|" + reset
 
-		taskLine += CalculateTaskLine(SunlitClay, OliveLeaf, Mauve, longestValues["Name"]-len(fmt.Sprintf("%v", task.Name)), task.Completed, task.Name)
-		taskLine += CalculateTaskLine(SunlitClay, OliveLeaf, Mauve, longestValues["Due Date"]-len(fmt.Sprintf("%v", task.DueDate)), task.Completed, task.DueDate)
-		taskLine += CalculateTaskLine(SunlitClay, OliveLeaf, Mauve, longestValues["Date Created"]-len(fmt.Sprintf("%v", task.DateCreated)), task.Completed, task.DateCreated)
-		taskLine += CalculateTaskLine(SunlitClay, OliveLeaf, Mauve, longestValues["Date Completed"]-len(fmt.Sprintf("%v", task.DateCompleted)), task.Completed, task.DateCompleted)
-		taskLine += CalculateTaskLine(SunlitClay, OliveLeaf, Mauve, longestValues["Completed"]-len(fmt.Sprintf("%v", task.Completed)), task.Completed, fmt.Sprintf("%v", task.Completed))
+		taskLine += CalculateTaskLine(SunlitClay, OliveLeaf, Mauve, longestValues["Name"]-len(fmt.Sprintf("%v", task.Name)), task.Completed, task.Name, MintMist, task.InProgress)
+		taskLine += CalculateTaskLine(SunlitClay, OliveLeaf, Mauve, longestValues["Due Date"]-len(fmt.Sprintf("%v", task.DueDate)), task.Completed, task.DueDate, MintMist, task.InProgress)
+		taskLine += CalculateTaskLine(SunlitClay, OliveLeaf, Mauve, longestValues["Date Created"]-len(fmt.Sprintf("%v", task.DateCreated)), task.Completed, task.DateCreated, MintMist, task.InProgress)
+		taskLine += CalculateTaskLine(SunlitClay, OliveLeaf, Mauve, longestValues["Date Completed"]-len(fmt.Sprintf("%v", task.DateCompleted)), task.Completed, task.DateCompleted, MintMist, task.InProgress)
+		taskLine += CalculateTaskLine(SunlitClay, OliveLeaf, Mauve, longestValues["Completed"]-len(fmt.Sprintf("%v", task.Completed)), task.Completed, fmt.Sprintf("%v", task.Completed), MintMist, task.InProgress)
 
 		fmt.Println(taskLine)
 	}
@@ -103,7 +103,7 @@ func ShowTasks(tasks Tasks, columnNames []string, flags Flags) {
 	fmt.Println(strings.Repeat(Mauve+"="+reset, lineLength))
 }
 
-func CalculateTaskLine(completedColor string, wordColor string, borderColor string, totalSpace int, completed bool, value string) string {
+func CalculateTaskLine(completedColor string, wordColor string, borderColor string, totalSpace int, completed bool, value string, inprogressColor string, inprogress bool) string {
 	numSideGap := totalSpace / 2
 	leftGap := numSideGap
 	rightGap := numSideGap
@@ -113,6 +113,8 @@ func CalculateTaskLine(completedColor string, wordColor string, borderColor stri
 
 	if completed {
 		return fmt.Sprintf(completedColor+"%v%v%v"+reset+borderColor+"|"+reset, strings.Repeat(" ", leftGap), value, strings.Repeat(" ", rightGap))
+	} else if inprogress {
+		return fmt.Sprintf(inprogressColor+"%v%v%v"+reset+borderColor+"|"+reset, strings.Repeat(" ", leftGap), value, strings.Repeat(" ", rightGap))
 	}
 	return fmt.Sprintf(wordColor+"%v%v%v"+reset+borderColor+"|"+reset, strings.Repeat(" ", leftGap), value, strings.Repeat(" ", rightGap))
 }
