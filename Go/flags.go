@@ -9,18 +9,10 @@ func SetFlags() Flags {
 	var flags Flags
 
 	SetBoolFlags(&flags.all, "A", "all", false, "Show all tasks")
-
-	flag.StringVar(&flags.add, "add", "", "Add a task")
-	flag.StringVar(&flags.add, "a", "", "Short version of add")
-
-	flag.StringVar(&flags.duedate, "duedate", "", "Date the task is due")
-	flag.StringVar(&flags.duedate, "d", "", "Short version of duedate")
-
-	flag.StringVar(&flags.completed, "complete", "", "Mark a task complete")
-	flag.StringVar(&flags.completed, "c", "", "Short version of complete")
-
-	flag.StringVar(&flags.remove, "remove", "", "Remove task by name")
-	flag.StringVar(&flags.remove, "r", "", "Short version of remove")
+	SetStringFlags(&flags.add, "a", "add", "", "Add a task")
+	SetStringFlags(&flags.duedate, "d", "duedate", "", "Date the task is due")
+	SetStringFlags(&flags.completed, "c", "complete", "", "Mark a task complete")
+	SetStringFlags(&flags.remove, "r", "remove", "", "Remove task by name")
 
 	flag.Usage = func() {
 		fmt.Println("Usage of todo:")
