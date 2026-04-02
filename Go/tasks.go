@@ -9,7 +9,7 @@ func AddTask(tasks *Tasks, flags Flags) {
 	var newTask Task
 	var duedate string
 
-	if flags.duedate == "" {
+	if flags.duedate != "" {
 		duedate = flags.duedate
 	} else {
 		duedate = "----"

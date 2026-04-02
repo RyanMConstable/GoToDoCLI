@@ -7,17 +7,17 @@ func main() {
 
 	flags := SetFlags()
 
-	if flags.add {
+	if flags.add != "" {
 		AddTask(&tasks, flags)
 		WriteJson(tasks, file)
 	}
 
-	if flags.completed {
+	if flags.completed != "" {
 		CompleteTask(&tasks, flags)
 		WriteJson(tasks, file)
 	}
 
-	if flags.remove {
+	if flags.remove != "" {
 		RemoveTask(&tasks, flags)
 	}
 
