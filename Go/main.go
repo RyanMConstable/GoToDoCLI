@@ -5,20 +5,20 @@ func main() {
 
 	tasks := ParseFile(file)
 
-	flags, flagvalues := SetFlags()
+	flags := SetFlags()
 
 	if flags.add {
-		AddTask(&tasks, flags, flagvalues)
+		AddTask(&tasks, flags)
 		WriteJson(tasks, file)
 	}
 
 	if flags.completed {
-		CompleteTask(&tasks, flags, flagvalues)
+		CompleteTask(&tasks, flags)
 		WriteJson(tasks, file)
 	}
 
 	if flags.remove {
-		RemoveTask(&tasks, flags, flagvalues)
+		RemoveTask(&tasks, flags)
 	}
 
 	fields := []string{"Name", "Completed", "Date Created", "Date Completed", "Due Date"}

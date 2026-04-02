@@ -5,9 +5,8 @@ import (
 	"fmt"
 )
 
-func SetFlags() (Flags, FlagValues) {
+func SetFlags() Flags {
 	var flags Flags
-	var flagvalues FlagValues
 
 	var flagAdd string
 	var flagCompleted string
