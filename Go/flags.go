@@ -8,8 +8,7 @@ import (
 func SetFlags() Flags {
 	var flags Flags
 
-	flag.BoolVar(&flags.all, "all", false, "Show all tasks")
-	flag.BoolVar(&flags.all, "A", false, "Show all tasks")
+	SetBoolFlags(&flags.all, "A", "all", false, "Show all tasks")
 
 	flag.StringVar(&flags.add, "add", "", "Add a task")
 	flag.StringVar(&flags.add, "a", "", "Short version of add")
@@ -41,4 +40,14 @@ func SetFlags() Flags {
 	})
 
 	return flags
+}
+
+func SetStringFlags(flagvalue *string, shortFlag string, longFlag string, defaultValue string, description string) {
+	flag.StringVar(flagvalue, shortFlag, defaultValue, description)
+	flag.StringVar(flagvalue, longFlag, defaultValue, description)
+}
+
+func SetBoolFlags(flagvalue *bool, shortFlag string, longFlag string, defaultValue bool, description string) {
+	flag.BoolVar(flagvalue, shortFlag, defaultValue, description)
+	flag.BoolVar(flagvalue, longFlag, defaultValue, description)
 }
