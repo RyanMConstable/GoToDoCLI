@@ -40,21 +40,5 @@ func SetFlags() Flags {
 		flagSet[f.Name] = true
 	})
 
-	if flagSet["add"] || flagSet["a"] {
-
-	} else {
-		flags.add = false
-	}
-
-	if flagSet["complete"] || flagSet["c"] {
-		flags.completed = true
-		flagvalues.name = flagCompleted
-	}
-
-	if flagSet["remove"] || flagSet["r"] {
-		flags.remove = true
-		flagvalues.name = flagRemove
-	}
-
-	return flags, flagvalues
+	return flags
 }
