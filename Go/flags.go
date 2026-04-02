@@ -41,11 +41,7 @@ func SetFlags() Flags {
 	})
 
 	if flagSet["add"] || flagSet["a"] {
-		flags.add = true
-		flagvalues.name = flagAdd
-		if flagSet["duedate"] || flagSet["d"] {
-			flags.duedate = true
-		}
+
 	} else {
 		flags.add = false
 	}

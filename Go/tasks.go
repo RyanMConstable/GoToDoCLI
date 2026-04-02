@@ -7,16 +7,19 @@ import (
 
 func AddTask(tasks *Tasks, flags Flags) {
 	var newTask Task
+	var duedate string
 
-	if flags.duedate {
-		newTask.DueDate = flagvalues.duedate
+	if flags.duedate == "" {
+		duedate = flags.duedate
 	} else {
-		newTask.DueDate = "----"
+		duedate = "----"
 	}
-	newTask.Name = flagvalues.name
 
 	//TIME
 	currentTime := time.Now().Format("2006-01-02")
+
+	newTask.Name = flags.add
+	newTask.DueDate = duedate
 	newTask.DateCreated = currentTime
 
 	tasks.Tasks = append(tasks.Tasks, newTask)
@@ -25,7 +28,7 @@ func AddTask(tasks *Tasks, flags Flags) {
 func CompleteTask(tasks *Tasks, flags Flags) {
 	found := false
 	for i, value := range tasks.Tasks {
-		if flagvalues.name == value.Name {
+		if flags.completed == value.Name {
 			tasks.Tasks[i].Completed = true
 			tasks.Tasks[i].DateCompleted = time.Now().Format("2006-01-02")
 			found = true
@@ -40,7 +43,7 @@ func CompleteTask(tasks *Tasks, flags Flags) {
 
 func RemoveTask(tasks *Tasks, flags Flags) {
 	for i, value := range tasks.Tasks {
-		if value.Name == flagvalues.name {
+		if value.Name == flags.remove {
 			fmt.Println("Removing!")
 		}
 		fmt.Println(i, value)
