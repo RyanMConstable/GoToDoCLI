@@ -13,6 +13,7 @@ func SetFlags() Flags {
 	SetStringFlags(&flags.duedate, "d", "duedate", "", "Date the task is due")
 	SetStringFlags(&flags.completed, "c", "complete", "", "Mark a task complete")
 	SetStringFlags(&flags.remove, "r", "remove", "", "Remove task by name")
+	SetStringFlags(&flags.inprogress, "p", "in-progress", "", "Mark a task as in progress")
 
 	flag.Usage = func() {
 		fmt.Println("Usage of todo:")
@@ -22,6 +23,7 @@ func SetFlags() Flags {
 		fmt.Println("  -complete, -c     Mark a task complete")
 		fmt.Println("  -duedate, -d      Date the task is due")
 		fmt.Println("  -remove, -r       Remove a task by name")
+		fmt.Println("  -in-progress, -p  Mark a task in progress")
 	}
 
 	flag.Parse()

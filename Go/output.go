@@ -20,7 +20,7 @@ const (
 	SageGreen   = "\033[38;2;175;213;170m" // ##AFD5AA - For border
 	BlackForest = "\033[38;2;40;54;24m"    // #283618  - dark accents
 	Mauve       = "\033[38;2;109;104;117m" // #6d6875
-	MintMist = "\033[38;2;203;243;240m"    // #CBF3F0 - For in progress
+	MintMist    = "\033[38;2;203;243;240m" // #CBF3F0 - For in progress
 )
 
 func ShowTasks(tasks Tasks, columnNames []string, flags Flags) {
