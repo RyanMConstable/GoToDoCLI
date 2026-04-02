@@ -13,14 +13,9 @@ type Task struct {
 }
 
 type Flags struct {
-	add       bool
-	duedate   bool
-	completed bool
-	remove    bool
+	add       string
+	duedate   string
+	completed string
+	remove    string
 	all       bool
-}
-
-type FlagValues struct {
-	name    string
-	duedate string
 }
