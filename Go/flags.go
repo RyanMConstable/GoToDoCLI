@@ -8,27 +8,20 @@ import (
 func SetFlags() Flags {
 	var flags Flags
 
-	var flagAdd string
-	var flagCompleted string
-	var flagRemove string
-
 	flag.BoolVar(&flags.all, "all", false, "Show all tasks")
 	flag.BoolVar(&flags.all, "A", false, "Show all tasks")
 
-	flag.StringVar(&flagAdd, "add", "", "Add a task")
-	flag.StringVar(&flagAdd, "a", "", "Short version of add")
+	flag.StringVar(&flags.add, "add", "", "Add a task")
+	flag.StringVar(&flags.add, "a", "", "Short version of add")
 
-	flag.StringVar(&flagvalues.name, "n", "", "Short version of name")
-	flag.StringVar(&flagvalues.name, "name", "", "Name of the task")
+	flag.StringVar(&flags.duedate, "duedate", "", "Date the task is due")
+	flag.StringVar(&flags.duedate, "d", "", "Short version of duedate")
 
-	flag.StringVar(&flagvalues.duedate, "duedate", "", "Date the task is due")
-	flag.StringVar(&flagvalues.duedate, "d", "", "Short version of duedate")
+	flag.StringVar(&flags.completed, "complete", "", "Mark a task complete")
+	flag.StringVar(&flags.completed, "c", "", "Short version of complete")
 
-	flag.StringVar(&flagCompleted, "complete", "", "Mark a task complete")
-	flag.StringVar(&flagCompleted, "c", "", "Short version of complete")
-
-	flag.StringVar(&flagRemove, "remove", "", "Remove task by name")
-	flag.StringVar(&flagRemove, "r", "", "Short version of remove")
+	flag.StringVar(&flags.remove, "remove", "", "Remove task by name")
+	flag.StringVar(&flags.remove, "r", "", "Short version of remove")
 
 	flag.Usage = func() {
 		fmt.Println("Usage of todo:")
