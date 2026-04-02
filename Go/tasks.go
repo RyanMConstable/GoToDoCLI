@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-func AddTask(tasks *Tasks, flags Flags, flagvalues FlagValues) {
+func AddTask(tasks *Tasks, flags Flags) {
 	var newTask Task
 
 	if flags.duedate {
@@ -22,7 +22,7 @@ func AddTask(tasks *Tasks, flags Flags, flagvalues FlagValues) {
 	tasks.Tasks = append(tasks.Tasks, newTask)
 }
 
-func CompleteTask(tasks *Tasks, flags Flags, flagvalues FlagValues) {
+func CompleteTask(tasks *Tasks, flags Flags) {
 	found := false
 	for i, value := range tasks.Tasks {
 		if flagvalues.name == value.Name {
@@ -38,7 +38,7 @@ func CompleteTask(tasks *Tasks, flags Flags, flagvalues FlagValues) {
 	}
 }
 
-func RemoveTask(tasks *Tasks, flags Flags, flagvalues FlagValues) {
+func RemoveTask(tasks *Tasks, flags Flags) {
 	for i, value := range tasks.Tasks {
 		if value.Name == flagvalues.name {
 			fmt.Println("Removing!")
