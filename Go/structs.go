@@ -21,5 +21,4 @@ type Flags struct {
 	remove     string
 	all        bool
 	inprogress string
-	stale      string
 }

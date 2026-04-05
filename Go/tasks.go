@@ -59,3 +59,27 @@ func MarkTaskInProgress(tasks *Tasks, flags Flags) {
 		}
 	}
 }
+
+func CheckStale(t *Tasks) {
+	for i, value := range t.Tasks {
+		if value.Stale || value.Completed {
+			continue
+		}
+
+		dateCreated, err := time.Parse(time.DateOnly, value.DateCreated)
+		if err != nil {
+			fmt.Println("ERROR")
+		}
+
+		dueDate, err := time.Parse(time.DateOnly, value.DueDate)
+		if err != nil {
+			if time.Since(dateCreated) >= 72*time.Hour {
+				t.Tasks[i].Stale = true
+			}
+		} else {
+			if time.Now().After(dueDate) {
+				t.Tasks[i].Stale = true
+			}
+		}
+	}
+}

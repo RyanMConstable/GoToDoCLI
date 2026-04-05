@@ -47,14 +47,14 @@ func SetBoolFlags(flagvalue *bool, shortFlag string, longFlag string, defaultVal
 }
 
 func DecisionTree(f Flags, t *Tasks, file string) {
+	CheckStale(t)
+
 	if f.add != "" {
 		AddTask(t, f)
-		WriteJson(*t, file)
 	}
 
 	if f.completed != "" {
 		CompleteTask(t, f)
-		WriteJson(*t, file)
 	}
 
 	if f.remove != "" {
@@ -63,6 +63,7 @@ func DecisionTree(f Flags, t *Tasks, file string) {
 
 	if f.inprogress != "" {
 		MarkTaskInProgress(t, f)
-		WriteJson(*t, file)
 	}
+
+	WriteJson(*t, file)
 }
