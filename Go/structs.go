@@ -11,6 +11,7 @@ type Task struct {
 	DateCompleted string `json:"datecompleted"`
 	DueDate       string `json:"duedate"`
 	InProgress    bool   `json:"inprogress"`
+	Stale         bool   `json:"stale"`
 }
 
 type Flags struct {
@@ -20,4 +21,5 @@ type Flags struct {
 	remove     string
 	all        bool
 	inprogress string
+	stale      string
 }
