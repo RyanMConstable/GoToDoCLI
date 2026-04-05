@@ -9,7 +9,7 @@ func main() {
 
 	DecisionTree(flags, &tasks, file)
 
-	fields := []string{"Name", "Completed", "Date Created", "Date Completed", "Due Date"}
+	fields := []string{"Name", "Date Created", "Date Completed", "Due Date"}
 
 	ShowTasks(tasks, fields, flags)
 }
