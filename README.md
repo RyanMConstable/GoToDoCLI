@@ -1,5 +1,5 @@
 # CLI To-Do App Made With GO
-Todo application that runs in the terminal with CLI, TUI, or WebApp
+Todo application that runs in the terminal via CLI or TUI, and/or in the browser.
 
 # Install
 1) Clone the Git repository
