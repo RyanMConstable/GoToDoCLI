@@ -1,5 +1,4 @@
 services:
-
   db:
     container_name: postgres
     image: postgres:18.3
@@ -7,6 +6,8 @@ services:
     shm_size: 128mb
     ports:
       - 5432:5432
+    volumes:
+      - ./postgresql/data:/var/lib/postgresql
     environment:
       POSTGRES_PASSWORD:
       POSTGRES_DB: todo

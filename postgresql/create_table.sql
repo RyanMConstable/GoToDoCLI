@@ -1,0 +1,10 @@
+CREATE TABLE todo (
+	id SERIAL PRIMARY KEY,
+	name TEXT NOT NULL,
+	duedate date,
+	datecreated DATE NOT NULL DEFAULT CURRENT_DATE,
+	datecompleted date DEFAULT NULL,
+	completed BOOLEAN NOT NULL DEFAULT FALSE,
+	inprogress BOOLEAN NOT NULL DEFAULT FALSE,
+	parent_id INT REFERENCES todo(id) ON DELETE SET NULL
+);
