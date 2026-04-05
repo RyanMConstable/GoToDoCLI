@@ -111,10 +111,11 @@ func CalculateTaskLine(completedColor string, wordColor string, borderColor stri
 
 	if completed {
 		return fmt.Sprintf(completedColor+"%v%v%v"+reset+borderColor+"|"+reset, strings.Repeat(" ", leftGap), value, strings.Repeat(" ", rightGap))
-	} else if stale {
-		return fmt.Sprintf(staleColor+"%v%v%v"+reset+borderColor+"|"+reset, strings.Repeat(" ", leftGap), value, strings.Repeat(" ", rightGap))
 	} else if inprogress {
 		return fmt.Sprintf(inprogressColor+"%v%v%v"+reset+borderColor+"|"+reset, strings.Repeat(" ", leftGap), value, strings.Repeat(" ", rightGap))
+	} else if stale {
+		return fmt.Sprintf(staleColor+"%v%v%v"+reset+borderColor+"|"+reset, strings.Repeat(" ", leftGap), value, strings.Repeat(" ", rightGap))
 	}
+
 	return fmt.Sprintf(wordColor+"%v%v%v"+reset+borderColor+"|"+reset, strings.Repeat(" ", leftGap), value, strings.Repeat(" ", rightGap))
 }

@@ -1,7 +1,10 @@
 package main
 
 import (
+	"errors"
 	"fmt"
+	"os"
+	"strings"
 	"time"
 )
 
@@ -27,19 +30,20 @@ func AddTask(tasks *Tasks, flags Flags) {
 }
 
 func CompleteTask(tasks *Tasks, flags Flags) {
-	found := false
+	name, err := SearchForTaskName(*tasks, flags.completed)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
 	for i, value := range tasks.Tasks {
-		if flags.completed == value.Name {
+		if name == value.Name {
 			tasks.Tasks[i].Completed = true
 			tasks.Tasks[i].DateCompleted = time.Now().Format("2006-01-02")
-			found = true
 			break
 		}
 	}
 
-	if !found {
-		fmt.Println("Task name does not exist")
-	}
 }
 
 func RemoveTask(tasks *Tasks, flags Flags) {
@@ -52,8 +56,14 @@ func RemoveTask(tasks *Tasks, flags Flags) {
 }
 
 func MarkTaskInProgress(tasks *Tasks, flags Flags) {
+	name, err := SearchForTaskName(*tasks, flags.inprogress)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
 	for i, value := range tasks.Tasks {
-		if value.Name == flags.inprogress {
+		if value.Name == name {
 			tasks.Tasks[i].InProgress = true
 			break
 		}
@@ -82,4 +92,23 @@ func CheckStale(t *Tasks) {
 			}
 		}
 	}
+}
+
+func SearchForTaskName(t Tasks, search string) (string, error) {
+	tasksFound := []string{}
+
+	for _, v := range t.Tasks {
+		if strings.HasPrefix(v.Name, search) && v.Completed == false {
+			tasksFound = append(tasksFound, v.Name)
+		}
+
+	}
+
+	if len(tasksFound) == 0 {
+		return "", errors.New("No tasks found")
+	} else if len(tasksFound) > 1 {
+		return "", errors.New("Too many tasks found")
+	}
+
+	return tasksFound[0], nil
 }
