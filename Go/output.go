@@ -12,14 +12,11 @@ const (
 
 	green = "\033[32m"
 
-	Cornsilk   = "\033[38;2;254;250;224m" // #FEFAE0 - headers
 	OliveLeaf  = "\033[38;2;96;108;56m"   // #606C38 - incomplete tasks
 	SunlitClay = "\033[38;2;221;161;94m"  // #DDA15E - complete tasks
 	Copperwood = "\033[38;2;188;108;37m"  // #BC6C25 - completed col values
 
-	SageGreen   = "\033[38;2;175;213;170m" // ##AFD5AA - For border
-	BlackForest = "\033[38;2;40;54;24m"    // #283618  - dark accents
-	Mauve       = "\033[38;2;109;104;117m" // #6d6875
+	Mauve       = "\033[38;2;109;104;117m" // #6d6875 - Borders for table
 	MintMist    = "\033[38;2;203;243;240m" // #CBF3F0 - For in progress
 )
 
