@@ -12,12 +12,12 @@ const (
 
 	green = "\033[32m"
 
-	OliveLeaf  = "\033[38;2;96;108;56m"   // #606C38 - incomplete tasks
-	SunlitClay = "\033[38;2;221;161;94m"  // #DDA15E - complete tasks
-	Copperwood = "\033[38;2;188;108;37m"  // #BC6C25 - completed col values
+	OliveLeaf  = "\033[38;2;96;108;56m"  // #606C38 - incomplete tasks
+	SunlitClay = "\033[38;2;221;161;94m" // #DDA15E - complete tasks
+	Copperwood = "\033[38;2;188;108;37m" // #BC6C25 - completed col values
 
-	Mauve       = "\033[38;2;109;104;117m" // #6d6875 - Borders for table
-	MintMist    = "\033[38;2;203;243;240m" // #CBF3F0 - For in progress
+	Mauve    = "\033[38;2;109;104;117m" // #6d6875 - Borders for table
+	MintMist = "\033[38;2;203;243;240m" // #CBF3F0 - For in progress
 )
 
 func ShowTasks(tasks Tasks, columnNames []string, flags Flags) {
