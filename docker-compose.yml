@@ -8,6 +8,8 @@ services:
       - 5432:5432
     volumes:
       - ./postgresql/data:/var/lib/postgresql
+      - ./postgresql/create_table.sql:/docker-entrypoint-initdb.d/todo.sql
     environment:
-      POSTGRES_PASSWORD:
+      POSTGRES_PASSWORD: 
       POSTGRES_DB: todo
+      POSTGRES_USER: todo
