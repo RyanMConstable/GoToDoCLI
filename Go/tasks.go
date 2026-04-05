@@ -64,7 +64,11 @@ func MarkTaskInProgress(tasks *Tasks, flags Flags) {
 
 	for i, value := range tasks.Tasks {
 		if value.Name == name {
-			tasks.Tasks[i].InProgress = true
+			if tasks.Tasks[i].InProgress {
+				tasks.Tasks[i].InProgress = false
+			} else {
+				tasks.Tasks[i].InProgress = true
+			}
 			break
 		}
 	}
