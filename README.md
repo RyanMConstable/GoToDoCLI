@@ -1,5 +1,5 @@
 # CLI To-Do App Made With GO
-Application to experiment with bubbletea in go to create a TUI
+Todo application that runs in the terminal with CLI, TUI, or WebApp
 
 # Install
 1) Clone the Git repository
