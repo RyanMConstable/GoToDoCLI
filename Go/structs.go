@@ -22,3 +22,11 @@ type Flags struct {
 	all        bool
 	inprogress string
 }
+
+type Config struct {
+	db_user     string
+	db_password string
+	db_host     string
+	db_port     string
+	db_name     string
+}
