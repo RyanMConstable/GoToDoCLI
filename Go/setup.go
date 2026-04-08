@@ -10,6 +10,7 @@ func Setup() string {
 	homeDirectory, _ := os.UserHomeDir()
 	defaultWorkingDirectory := homeDirectory + "/.todo"
 	defaultJsonFile := homeDirectory + "/.todo/todo.json"
+	defaultConfigFile := homeDirectory + "/.todo/config.yaml"
 
 	if _, err := os.Stat(defaultWorkingDirectory); os.IsNotExist(err) {
 		fmt.Println("Creating directory!")
@@ -24,5 +25,8 @@ func Setup() string {
 		}
 	}
 
+	if _, err := os.Stat(defaultConfigFile); err != nil {
+		fmt.Println("Creating config file")
+	}
 	return defaultJsonFile
 }
