@@ -1,15 +1,17 @@
 package main
 
 func main() {
+	data := Data{}
+
 	file := Setup()
 
 	tasks := ParseFile(file)
 
-	flags := SetFlags()
+	data.flags = SetFlags()
 
-	DecisionTree(flags, &tasks, file)
+	DecisionTree(data.flags, &tasks, file)
 
 	fields := []string{"Name", "Date Created", "Date Completed", "Due Date"}
 
-	ShowTasks(tasks, fields, flags)
+	ShowTasks(tasks, fields, data.flags)
 }

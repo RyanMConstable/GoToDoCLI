@@ -26,7 +26,10 @@ func Setup() string {
 	}
 
 	if _, err := os.Stat(defaultConfigFile); err != nil {
-		fmt.Println("Creating config file")
+		if err != nil {
+			os.Exit(1)
+		}
+
 	}
 	return defaultJsonFile
 }
