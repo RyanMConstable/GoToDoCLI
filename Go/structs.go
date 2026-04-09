@@ -4,6 +4,8 @@ type Data struct {
 	tasks  Tasks
 	flags  Flags
 	config Config
+
+	file string
 }
 
 type Tasks struct {

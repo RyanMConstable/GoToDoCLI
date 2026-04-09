@@ -3,13 +3,13 @@ package main
 func main() {
 	data := Data{}
 
-	file := Setup()
+	data.file = Setup()
 
-	data.tasks = ParseFile(file)
+	data.tasks = ParseFile(data.file)
 
 	data.flags = SetFlags()
 
-	DecisionTree(data.flags, &data.tasks, file)
+	DecisionTree(data.flags, &data.tasks, data.file)
 
 	fields := []string{"Name", "Date Created", "Date Completed", "Due Date"}
 
