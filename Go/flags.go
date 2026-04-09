@@ -48,7 +48,11 @@ func SetBoolFlags(flagvalue *bool, shortFlag string, longFlag string, defaultVal
 	flag.BoolVar(flagvalue, longFlag, defaultValue, description)
 }
 
-func DecisionTree(f Flags, t *Tasks, file string) {
+func DecisionTree(d *Data) {
+	f := d.flags
+	file := d.file
+	t := &d.tasks
+
 	CheckStale(t)
 
 	if f.add != "" {

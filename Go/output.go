@@ -22,7 +22,10 @@ const (
 	Sunlit = "\033[38;2;255;60;56m"
 )
 
-func ShowTasks(tasks Tasks, columnNames []string, flags Flags) {
+func ShowTasks(d Data, columnNames []string) {
+	tasks := d.tasks
+	flags := d.flags
+
 	tasksShown := 0
 
 	longestValues := map[string]int{}
