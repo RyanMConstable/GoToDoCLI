@@ -1,13 +1,11 @@
 ---
-#File defines configurations for the todo application
+#File defines configurations for the application
 
 #DB Connections, if the variable is set it will default to database no matter what. Only uncomment if you want a database connection. Otherwise a json file will be created locally.
-#DB_CONNECTION
 
 
-#Configurations
-#TABLE_COLOR=
-#
-#TEXT_COLOR=
-#
-#BACKGROUND_HIGHLIGHT_COLOR=
+#DB_USER=
+#DB_PASSWORD=
+#DB_HOST=
+#DB_PORT=
+#DB_NAME=

@@ -21,6 +21,7 @@ type Flags struct {
 	remove     string
 	all        bool
 	inprogress string
+	config     string
 }
 
 type Config struct {

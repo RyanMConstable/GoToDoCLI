@@ -14,16 +14,18 @@ func SetFlags() Flags {
 	SetStringFlags(&flags.completed, "c", "complete", "", "Mark a task complete")
 	SetStringFlags(&flags.remove, "r", "remove", "", "Remove task by name")
 	SetStringFlags(&flags.inprogress, "p", "in-progress", "", "Mark a task as in progress")
+	SetStringFlags(&flags.config, "C", "config", "", "Set the path location for a config file")
 
 	flag.Usage = func() {
 		fmt.Println("Usage of todo:")
-		fmt.Println("  -add, -a          Add a task")
-		fmt.Println("  -all, -A          Show all tasks")
-		fmt.Println("  -name, -n         Name of the task")
-		fmt.Println("  -complete, -c     Mark a task complete")
-		fmt.Println("  -duedate, -d      Date the task is due")
-		fmt.Println("  -remove, -r       Remove a task by name")
+		fmt.Println("  -add,         -a  Add a task")
+		fmt.Println("  -all,         -A  Show all tasks")
+		fmt.Println("  -name,        -n  Name of the task")
+		fmt.Println("  -complete,    -c  Mark a task complete")
+		fmt.Println("  -duedate,     -d  Date the task is due")
+		fmt.Println("  -remove,      -r  Remove a task by name")
 		fmt.Println("  -in-progress, -p  Mark a task in progress")
+		fmt.Println("  -config,      -C  Add a configuration file")
 	}
 
 	flag.Parse()
