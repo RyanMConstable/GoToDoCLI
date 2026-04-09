@@ -5,13 +5,13 @@ func main() {
 
 	file := Setup()
 
-	tasks := ParseFile(file)
+	data.tasks = ParseFile(file)
 
 	data.flags = SetFlags()
 
-	DecisionTree(data.flags, &tasks, file)
+	DecisionTree(data.flags, &data.tasks, file)
 
 	fields := []string{"Name", "Date Created", "Date Completed", "Due Date"}
 
-	ShowTasks(tasks, fields, data.flags)
+	ShowTasks(data.tasks, fields, data.flags)
 }
