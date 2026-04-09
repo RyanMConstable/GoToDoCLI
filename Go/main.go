@@ -3,7 +3,9 @@ package main
 func main() {
 	data := Data{}
 
-	data.file, data.tasks, data.flags = Setup(), ParseFile(data.file), SetFlags()
+	data.file = Setup()
+	data.tasks = ParseFile(data.file)
+	data.flags = SetFlags()
 
 	DecisionTree(&data)
 

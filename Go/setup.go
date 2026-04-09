@@ -26,7 +26,7 @@ func Setup() string {
 	}
 
 	if _, err := os.Stat(defaultConfigFile); err != nil {
-		if err != nil {
+		if err == nil {
 			os.Exit(1)
 		}
 
