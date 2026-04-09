@@ -8,3 +8,6 @@ Todo application that runs in the terminal via CLI or TUI, and/or in the browser
 
 Optional
 4) Move binary to PATH location
+
+
+Last) Run the todo binary!
