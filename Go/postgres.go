@@ -11,7 +11,7 @@ var pool *pgxpool.Pool
 var ctx = context.Background()
 
 func unmarshalPostgres(c Config) {
-	_, err := pgxpool.New(ctx, fmt.Sprintf("postgresql://%v:%v@%v:%v/%v", c.db_user, c.db_password, c.db_host, c.db_port, c.db_name))
+	_, err := pgxpool.New(ctx, fmt.Sprintf("postgresql://%v:%v@%v:%v/%v", c.DB_USER, c.DB_PASSWORD, c.DB_HOST, c.DB_PORT, c.DB_NAME))
 
 	if err != nil {
 		fmt.Println(err)

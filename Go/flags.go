@@ -3,10 +3,13 @@ package main
 import (
 	"flag"
 	"fmt"
+
+	"github.com/BurntSushi/toml"
 )
 
-func SetFlags() Flags {
+func SetFlags() (Flags, Config) {
 	var flags Flags
+	var c Config
 
 	SetBoolFlags(&flags.all, "A", "all", false, "Show all tasks")
 	SetStringFlags(&flags.add, "a", "add", "", "Add a task")
@@ -35,7 +38,12 @@ func SetFlags() Flags {
 		flagSet[f.Name] = true
 	})
 
-	return flags
+	_, err := toml.DecodeFile(flags.config, &c)
+	if err != nil {
+		c = Config{}
+	}
+
+	return flags, c
 }
 
 func SetStringFlags(flagvalue *string, shortFlag string, longFlag string, defaultValue string, description string) {

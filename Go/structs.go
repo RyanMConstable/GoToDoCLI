@@ -33,9 +33,9 @@ type Flags struct {
 }
 
 type Config struct {
-	db_user     string
-	db_password string
-	db_host     string
-	db_port     string
-	db_name     string
+	DB_USER     string `toml:"DB_USER"`
+	DB_PASSWORD string `toml:"DB_PASSWORD"`
+	DB_HOST     string `toml:"DB_HOST"`
+	DB_PORT     string `toml:"DB_PORT"`
+	DB_NAME     string `toml:"DB_NAME"`
 }

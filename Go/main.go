@@ -1,11 +1,14 @@
 package main
 
+import "fmt"
+
 func main() {
 	data := Data{}
 
 	data.file = Setup()
 	data.tasks = ParseFile(data.file)
-	data.flags = SetFlags()
+	data.flags, data.config = SetFlags()
+	fmt.Println(data.config)
 
 	DecisionTree(&data)
 
