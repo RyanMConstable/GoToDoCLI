@@ -1,5 +1,11 @@
 package main
 
+type Data struct {
+	tasks  Tasks
+	flags  Flags
+	config Config
+}
+
 type Tasks struct {
 	Tasks []Task `json:"tasks"`
 }
