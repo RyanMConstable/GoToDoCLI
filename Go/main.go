@@ -1,14 +1,12 @@
 package main
 
-import "fmt"
-
 func main() {
 	data := Data{}
 
 	data.file = Setup()
-	data.tasks = ParseFile(data.file)
 	data.flags, data.config = SetFlags()
-	fmt.Println(data.config)
+	data.tasks = ParseFile(data.file)
+	UnmarshalPostgres(data.config)
 
 	DecisionTree(&data)
 

@@ -1,3 +1,4 @@
 postgresql/data
 Go/todo
 .env
+config.conf
