@@ -13,13 +13,13 @@ type Tasks struct {
 }
 
 type Task struct {
-	Name          string `json:"name"`
-	Completed     bool   `json:"completed"`
-	DateCreated   string `json:"datecreated"`
-	DateCompleted string `json:"datecompleted"`
-	DueDate       string `json:"duedate"`
-	InProgress    bool   `json:"inprogress"`
-	Stale         bool   `json:"stale"`
+	Name          string `json:"name"          db:"name"`
+	Completed     bool   `json:"completed"     db:"completed"`
+	DateCreated   string `json:"datecreated"   db:"datecreated"`
+	DateCompleted string `json:"datecompleted" db:"datecompleted"`
+	DueDate       string `json:"duedate"       db:"duedate"`
+	InProgress    bool   `json:"inprogress"    db:"inprogress"`
+	Stale         bool   `json:"stale"         db:"stale"`
 }
 
 type Flags struct {
