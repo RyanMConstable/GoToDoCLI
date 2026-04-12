@@ -6,17 +6,12 @@ func main() {
 
 	data.file = Setup()
 	data.flags, data.config = SetFlags()
-	data.tasks = ParseFile(data.file)
 
-	//Currently under testing
-	psqldata := Data{}
-	psqldata.file = data.file
-	psqldata.flags = data.flags
-	psqldata.config = data.config
-
-	psqldata.tasks = UnmarshalPostgres(data.config)
-	ShowTasks(psqldata, column_names)
-	//End testing environment
+	if data.config.DB_HOST != "" {
+		data.tasks = UnmarshalPostgres(data.config)
+	} else {
+		data.tasks = ParseFile(data.file)
+	}
 
 	DecisionTree(&data)
 

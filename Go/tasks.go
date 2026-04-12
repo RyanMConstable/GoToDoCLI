@@ -10,20 +10,18 @@ import (
 
 func AddTask(tasks *Tasks, flags Flags) {
 	var newTask Task
-	var duedate string
+	var duedate time.Time
 
 	if flags.duedate != "" {
-		duedate = flags.duedate
-	} else {
-		duedate = "----"
+		duedate, _ = time.Parse("2006-01-02", flags.duedate)
 	}
 
 	//TIME
-	currentTime := time.Now().Format("2006-01-02")
+	currentTime := time.Now()
 
 	newTask.Name = flags.add
-	newTask.DueDate = duedate
-	newTask.DateCreated = currentTime
+	newTask.DueDate = &duedate
+	newTask.DateCreated = &currentTime
 	newTask.InProgress = false
 
 	tasks.Tasks = append(tasks.Tasks, newTask)
@@ -39,7 +37,7 @@ func CompleteTask(tasks *Tasks, flags Flags) {
 	for i, value := range tasks.Tasks {
 		if name == value.Name {
 			tasks.Tasks[i].Completed = true
-			tasks.Tasks[i].DateCompleted = time.Now().Format("2006-01-02")
+			tasks.Tasks[i].DateCompleted = time.Now()
 			break
 		}
 	}
@@ -80,21 +78,15 @@ func CheckStale(t *Tasks) {
 			continue
 		}
 
-		dateCreated, err := time.Parse(time.DateOnly, value.DateCreated)
-		if err != nil {
-			fmt.Println("ERROR")
+		dateCreated := value.DateCreated
+
+		dueDate := value.DueDate
+		if time.Since(*dateCreated) >= 72*time.Hour {
+			t.Tasks[i].Stale = true
+		} else if time.Now().After(*dueDate) {
+			t.Tasks[i].Stale = true
 		}
 
-		dueDate, err := time.Parse(time.DateOnly, value.DueDate)
-		if err != nil {
-			if time.Since(dateCreated) >= 72*time.Hour {
-				t.Tasks[i].Stale = true
-			}
-		} else {
-			if time.Now().After(dueDate) {
-				t.Tasks[i].Stale = true
-			}
-		}
 	}
 }
 

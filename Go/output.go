@@ -43,20 +43,20 @@ func ShowTasks(d Data, columnNames []string) {
 
 			case "Date Created":
 				if value.Completed == false || flags.all == true {
-					if longestValues[columnName] < len(value.DateCreated)+2 {
-						longestValues[columnName] = len(value.DateCreated) + 2
+					if longestValues[columnName] < len(fmt.Sprintf("%v", value.DateCreated))+2 {
+						longestValues[columnName] = len(fmt.Sprintf("%v", value.DateCreated)) + 2
 					}
 				}
 			case "Date Completed":
 				if value.Completed == false || flags.all == true {
-					if longestValues[columnName] < len(value.DateCompleted)+2 {
-						longestValues[columnName] = len(value.DateCompleted) + 2
+					if longestValues[columnName] < len(fmt.Sprintf("%v", value.DateCompleted))+2 {
+						longestValues[columnName] = len(fmt.Sprintf("%v", value.DateCompleted)) + 2
 					}
 				}
 			case "Due Date":
 				if value.Completed == false || flags.all == true {
-					if longestValues[columnName] < len(value.DueDate)+2 {
-						longestValues[columnName] = len(value.DueDate) + 2
+					if longestValues[columnName] < len(fmt.Sprintf("%v", value.DueDate))+2 {
+						longestValues[columnName] = len(fmt.Sprintf("%v", value.DueDate)) + 2
 					}
 				}
 			}
@@ -90,9 +90,9 @@ func ShowTasks(d Data, columnNames []string) {
 		taskLine := Mauve + "|" + reset
 
 		taskLine += CalculateTaskLine(SunlitClay, OliveLeaf, Mauve, longestValues["Name"]-len(fmt.Sprintf("%v", task.Name)), task.Completed, task.Name, MintMist, task.InProgress, Sunlit, task.Stale)
-		taskLine += CalculateTaskLine(SunlitClay, OliveLeaf, Mauve, longestValues["Due Date"]-len(fmt.Sprintf("%v", task.DueDate)), task.Completed, task.DueDate, MintMist, task.InProgress, Sunlit, task.Stale)
-		taskLine += CalculateTaskLine(SunlitClay, OliveLeaf, Mauve, longestValues["Date Created"]-len(fmt.Sprintf("%v", task.DateCreated)), task.Completed, task.DateCreated, MintMist, task.InProgress, Sunlit, task.Stale)
-		taskLine += CalculateTaskLine(SunlitClay, OliveLeaf, Mauve, longestValues["Date Completed"]-len(fmt.Sprintf("%v", task.DateCompleted)), task.Completed, task.DateCompleted, MintMist, task.InProgress, Sunlit, task.Stale)
+		taskLine += CalculateTaskLine(SunlitClay, OliveLeaf, Mauve, longestValues["Due Date"]-len(fmt.Sprintf("%v", task.DueDate)), task.Completed, fmt.Sprintf("%v", task.DueDate), MintMist, task.InProgress, Sunlit, task.Stale)
+		taskLine += CalculateTaskLine(SunlitClay, OliveLeaf, Mauve, longestValues["Date Created"]-len(fmt.Sprintf("%v", task.DateCreated)), task.Completed, fmt.Sprintf("%v", task.DateCreated), MintMist, task.InProgress, Sunlit, task.Stale)
+		taskLine += CalculateTaskLine(SunlitClay, OliveLeaf, Mauve, longestValues["Date Completed"]-len(fmt.Sprintf("%v", task.DateCompleted)), task.Completed, fmt.Sprintf("%v", task.DateCompleted), MintMist, task.InProgress, Sunlit, task.Stale)
 
 		fmt.Println(taskLine)
 	}

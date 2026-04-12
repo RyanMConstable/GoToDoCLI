@@ -1,5 +1,9 @@
 package main
 
+import (
+	"time"
+)
+
 type Data struct {
 	tasks  Tasks
 	flags  Flags
@@ -13,13 +17,15 @@ type Tasks struct {
 }
 
 type Task struct {
-	Name          string `json:"name"          db:"name"`
-	Completed     bool   `json:"completed"     db:"completed"`
-	DateCreated   string `json:"datecreated"   db:"datecreated"`
-	DateCompleted string `json:"datecompleted" db:"datecompleted"`
-	DueDate       string `json:"duedate"       db:"duedate"`
-	InProgress    bool   `json:"inprogress"    db:"inprogress"`
-	Stale         bool   `json:"stale"         db:"stale"`
+	ID            int        `json:"id"            db:"id"`
+	Name          string     `json:"name"          db:"name"`
+	Completed     bool       `json:"completed"     db:"completed"`
+	DateCreated   *time.Time `json:"datecreated"   db:"datecreated"`
+	DateCompleted time.Time  `json:"datecompleted" db:"datecompleted"`
+	DueDate       *time.Time `json:"duedate"       db:"duedate"`
+	InProgress    bool       `json:"inprogress"    db:"inprogress"`
+	Stale         bool       `json:"stale"         db:"stale"`
+	Parent_ID     int        `json:"parent_id"     db:"parent_id"`
 }
 
 type Flags struct {
