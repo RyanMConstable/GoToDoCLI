@@ -10,7 +10,7 @@ import (
 
 func AddTask(tasks *Tasks, flags Flags) {
 	var newTask Task
-	var duedate time.Time
+	duedate := time.Now().Add(72 * time.Hour)
 
 	if flags.duedate != "" {
 		duedate, _ = time.Parse("2006-01-02", flags.duedate)
@@ -23,6 +23,7 @@ func AddTask(tasks *Tasks, flags Flags) {
 	newTask.DueDate = &duedate
 	newTask.DateCreated = &currentTime
 	newTask.InProgress = false
+	newTask.Stale = false
 
 	tasks.Tasks = append(tasks.Tasks, newTask)
 }
