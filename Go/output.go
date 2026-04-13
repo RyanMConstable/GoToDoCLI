@@ -64,11 +64,15 @@ func ShowTasks(d Data, columnNames []string) {
 	}
 
 	lineLength := 1
+	lineLengthNotAll := 1
 
 	lineValues := map[string]string{}
 
 	for k, value := range longestValues {
 		lineLength += (value) + 1
+		if k != "Date Created" && k != "Date Completed" {
+			lineLengthNotAll += (value) + 1
+		}
 
 		value -= len(k)
 		leftGap, rightGap := value/2, value/2
@@ -78,9 +82,15 @@ func ShowTasks(d Data, columnNames []string) {
 		lineValues[k] = fmt.Sprintf(Copperwood+bold+"%v%v%v"+reset+Mauve+"|"+reset, strings.Repeat(" ", leftGap), k, strings.Repeat(" ", rightGap))
 	}
 
-	fmt.Println(strings.Repeat(Mauve+"=", lineLength))
-	fmt.Println(fmt.Sprintf("|%v%v%v%v", lineValues["Name"], lineValues["Due Date"], lineValues["Date Created"], lineValues["Date Completed"]))
-	fmt.Println(strings.Repeat(Mauve+"=", lineLength))
+	if flags.all {
+		fmt.Println(strings.Repeat(Mauve+"=", lineLength))
+		fmt.Println(fmt.Sprintf("|%v%v%v%v", lineValues["Name"], lineValues["Due Date"], lineValues["Date Created"], lineValues["Date Completed"]))
+		fmt.Println(strings.Repeat(Mauve+"=", lineLength))
+	} else {
+		fmt.Println(strings.Repeat(Mauve+"=", lineLengthNotAll))
+		fmt.Println(fmt.Sprintf("|%v%v", lineValues["Name"], lineValues["Due Date"]))
+		fmt.Println(strings.Repeat(Mauve+"=", lineLengthNotAll))
+	}
 
 	for _, task := range tasks.Tasks {
 		if flags.all == false && task.Completed == true {
@@ -91,9 +101,10 @@ func ShowTasks(d Data, columnNames []string) {
 
 		taskLine += CalculateTaskLine(SunlitClay, OliveLeaf, Mauve, longestValues["Name"]-len(fmt.Sprintf("%v", task.Name)), task.Completed, task.Name, MintMist, task.InProgress, Sunlit, task.Stale)
 		taskLine += CalculateTaskLine(SunlitClay, OliveLeaf, Mauve, longestValues["Due Date"]-len(fmt.Sprintf("%v", task.DueDate)), task.Completed, fmt.Sprintf("%v", task.DueDate), MintMist, task.InProgress, Sunlit, task.Stale)
-		taskLine += CalculateTaskLine(SunlitClay, OliveLeaf, Mauve, longestValues["Date Created"]-len(fmt.Sprintf("%v", task.DateCreated)), task.Completed, fmt.Sprintf("%v", task.DateCreated), MintMist, task.InProgress, Sunlit, task.Stale)
-		taskLine += CalculateTaskLine(SunlitClay, OliveLeaf, Mauve, longestValues["Date Completed"]-len(fmt.Sprintf("%v", task.DateCompleted)), task.Completed, fmt.Sprintf("%v", task.DateCompleted), MintMist, task.InProgress, Sunlit, task.Stale)
-
+		if flags.all {
+			taskLine += CalculateTaskLine(SunlitClay, OliveLeaf, Mauve, longestValues["Date Created"]-len(fmt.Sprintf("%v", task.DateCreated)), task.Completed, fmt.Sprintf("%v", task.DateCreated), MintMist, task.InProgress, Sunlit, task.Stale)
+			taskLine += CalculateTaskLine(SunlitClay, OliveLeaf, Mauve, longestValues["Date Completed"]-len(fmt.Sprintf("%v", task.DateCompleted)), task.Completed, fmt.Sprintf("%v", task.DateCompleted), MintMist, task.InProgress, Sunlit, task.Stale)
+		}
 		fmt.Println(taskLine)
 	}
 
@@ -101,7 +112,11 @@ func ShowTasks(d Data, columnNames []string) {
 		fmt.Println(fmt.Sprintf(Mauve+"|"+reset+"%v"+Mauve+"|"+reset, strings.Repeat(" ", lineLength-2)))
 	}
 
-	fmt.Println(strings.Repeat(Mauve+"="+reset, lineLength))
+	if flags.all {
+		fmt.Println(strings.Repeat(Mauve+"="+reset, lineLength))
+	} else {
+		fmt.Println(strings.Repeat(Mauve+"="+reset, lineLengthNotAll))
+	}
 }
 
 func CalculateTaskLine(completedColor string, wordColor string, borderColor string, totalSpace int, completed bool, value string, inprogressColor string, inprogress bool, staleColor string, stale bool) string {
