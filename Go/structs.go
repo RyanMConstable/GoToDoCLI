@@ -10,6 +10,7 @@ type Data struct {
 	config Config
 
 	file string
+	conf string
 }
 
 type Tasks struct {

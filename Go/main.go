@@ -4,7 +4,7 @@ func main() {
 	column_names := []string{"Name", "Date Created", "Date Completed", "Due Date"}
 	data := Data{}
 
-	data.file, _ = Setup()
+	data.file, data.conf = Setup()
 	data.flags, data.config = SetFlags()
 
 	if data.flags.db {
