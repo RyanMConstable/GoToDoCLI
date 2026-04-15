@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func Setup() string {
+func Setup() (string, string) {
 	homeDirectory, _ := os.UserHomeDir()
 	defaultWorkingDirectory := homeDirectory + "/.todo"
 	defaultJsonFile := homeDirectory + "/.todo/todo.json"
@@ -26,10 +26,7 @@ func Setup() string {
 	}
 
 	if _, err := os.Stat(defaultConfigFile); err != nil {
-		if err == nil {
-			os.Exit(1)
-		}
-
+		defaultConfigFile = ""
 	}
-	return defaultJsonFile
+	return defaultJsonFile, defaultConfigFile
 }
