@@ -81,5 +81,9 @@ func DecisionTree(d *Data) {
 		MarkTaskInProgress(t, f)
 	}
 
-	WriteJson(*t, file)
+	if f.db {
+		fmt.Println("Writing to database")
+	} else {
+		WriteJson(*t, file)
+	}
 }
