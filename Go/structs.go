@@ -8,9 +8,9 @@ type Data struct {
 	tasks  Tasks
 	flags  Flags
 	config Config
+	setup  SetupFiles
 
 	file string
-	conf string
 }
 
 type Tasks struct {
@@ -46,4 +46,9 @@ type Config struct {
 	DB_HOST     string `toml:"DB_HOST"`
 	DB_PORT     string `toml:"DB_PORT"`
 	DB_NAME     string `toml:"DB_NAME"`
+}
+
+type SetupFiles struct {
+	dataFile string
+	confFile string
 }

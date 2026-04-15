@@ -7,7 +7,7 @@ import (
 	"github.com/BurntSushi/toml"
 )
 
-func SetFlags() (Flags, Config) {
+func SetFlags(s SetupFiles) (Flags, Config) {
 	var flags Flags
 	var c Config
 
