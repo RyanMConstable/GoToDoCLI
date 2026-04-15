@@ -38,6 +38,7 @@ func SetFlags(s SetupFiles) (Flags, Config) {
 		flagSet[f.Name] = true
 	})
 
+	//REMINDER TO MAKE SURE DEFAULT CONFIG FILE IS ACTIVATED IF IT EXISTS AND READ IN VALUES
 	_, err := toml.DecodeFile(flags.config, &c)
 	if err != nil {
 		c = Config{}
