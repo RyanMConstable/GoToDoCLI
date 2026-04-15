@@ -109,7 +109,12 @@ func ShowTasks(d Data, columnNames []string) {
 	}
 
 	if tasksShown == 0 {
-		fmt.Println(fmt.Sprintf(Mauve+"|"+reset+"%v"+Mauve+"|"+reset, strings.Repeat(" ", lineLength-2)))
+		if flags.all {
+			fmt.Println(fmt.Sprintf(Mauve+"|"+reset+"%v"+Mauve+"|"+reset, strings.Repeat(" ", lineLength-2)))
+		} else {
+			fmt.Println(fmt.Sprintf(Mauve+"|"+reset+"%v"+Mauve+"|"+reset, strings.Repeat(" ", lineLengthNotAll-2)))
+		}
+
 	}
 
 	if flags.all {
