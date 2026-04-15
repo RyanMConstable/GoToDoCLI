@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func Setup() (string, SetupFiles) {
+func Setup() SetupFiles {
 	var setup SetupFiles
 
 	homeDirectory, _ := os.UserHomeDir()
@@ -32,5 +32,5 @@ func Setup() (string, SetupFiles) {
 	}
 
 	setup.dataFile = defaultJsonFile
-	return defaultJsonFile, setup
+	return setup
 }

@@ -60,7 +60,7 @@ func SetBoolFlags(flagvalue *bool, shortFlag string, longFlag string, defaultVal
 
 func DecisionTree(d *Data) {
 	f := d.flags
-	file := d.file
+	file := d.setup.dataFile
 	t := &d.tasks
 
 	CheckStale(t)
