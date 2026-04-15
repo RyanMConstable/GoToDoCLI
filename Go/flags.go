@@ -41,6 +41,8 @@ func SetFlags() (Flags, Config) {
 	_, err := toml.DecodeFile(flags.config, &c)
 	if err != nil {
 		c = Config{}
+	} else {
+		flags.db = true
 	}
 
 	return flags, c

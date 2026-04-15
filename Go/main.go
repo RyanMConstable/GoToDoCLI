@@ -7,7 +7,7 @@ func main() {
 	data.file = Setup()
 	data.flags, data.config = SetFlags()
 
-	if data.config.DB_HOST != "" {
+	if data.flags.db {
 		data.tasks = UnmarshalPostgres(data.config)
 	} else {
 		data.tasks = ParseFile(data.file)

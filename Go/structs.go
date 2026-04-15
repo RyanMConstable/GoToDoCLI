@@ -36,6 +36,7 @@ type Flags struct {
 	all        bool
 	inprogress string
 	config     string
+	db         bool
 }
 
 type Config struct {
