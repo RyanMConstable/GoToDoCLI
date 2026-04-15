@@ -9,8 +9,6 @@ type Data struct {
 	flags  Flags
 	config Config
 	setup  SetupFiles
-
-	file string
 }
 
 type Tasks struct {
