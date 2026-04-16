@@ -36,7 +36,6 @@ func SetFlags(s SetupFiles) (Flags, Config) {
 	if flags.config != "" {
 		_, err := toml.DecodeFile(flags.config, &c)
 		if err == nil {
-			flags.db = true
 			s.confFile = flags.config
 		}
 	}
