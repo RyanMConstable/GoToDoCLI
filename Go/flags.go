@@ -3,8 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-
-	"github.com/BurntSushi/toml"
 )
 
 func SetFlags(s SetupFiles) (Flags, Config) {
@@ -33,12 +31,12 @@ func SetFlags(s SetupFiles) (Flags, Config) {
 
 	flag.Parse()
 
-	if flags.config != "" {
-		_, err := toml.DecodeFile(flags.config, &c)
-		if err == nil {
-			s.confFile = flags.config
-		}
-	}
+	//if flags.config != "" {
+	//	_, err := toml.DecodeFile(flags.config, &c)
+	//	if err == nil {
+	//		s.confFile = flags.config
+	//	}
+	//}
 
 	return flags, c
 }
