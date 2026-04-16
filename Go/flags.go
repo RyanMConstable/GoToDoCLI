@@ -6,16 +6,16 @@ import (
 )
 
 func SetFlags() (Flags, Config) {
-	var flags Flags
+	var f Flags
 	var c Config
 
-	SetBoolFlags(&flags.all, "A", "all", false, "Show all tasks")
-	SetStringFlags(&flags.add, "a", "add", "", "Add a task")
-	SetStringFlags(&flags.duedate, "d", "duedate", "", "Date the task is due")
-	SetStringFlags(&flags.completed, "c", "complete", "", "Mark a task complete")
-	SetStringFlags(&flags.remove, "r", "remove", "", "Remove task by name")
-	SetStringFlags(&flags.inprogress, "p", "in-progress", "", "Mark a task as in progress")
-	SetStringFlags(&flags.config, "C", "config", "", "Set the path location for a config file")
+	SetBoolFlags(&f.all, "A", "all", false, "Show all tasks")
+	SetStringFlags(&f.add, "a", "add", "", "Add a task")
+	SetStringFlags(&f.duedate, "d", "duedate", "", "Date the task is due")
+	SetStringFlags(&f.completed, "c", "complete", "", "Mark a task complete")
+	SetStringFlags(&f.remove, "r", "remove", "", "Remove task by name")
+	SetStringFlags(&f.inprogress, "p", "in-progress", "", "Mark a task as in progress")
+	SetStringFlags(&f.config, "C", "config", "", "Set the path location for a config file")
 
 	flag.Usage = func() {
 		fmt.Println("Usage of todo:")
@@ -38,7 +38,7 @@ func SetFlags() (Flags, Config) {
 	//	}
 	//}
 
-	return flags, c
+	return f, c
 }
 
 func SetStringFlags(flagvalue *string, shortFlag string, longFlag string, defaultValue string, description string) {
