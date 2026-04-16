@@ -43,7 +43,7 @@ func SetBoolFlags(flagvalue *bool, shortFlag string, longFlag string, defaultVal
 	flag.BoolVar(flagvalue, longFlag, defaultValue, description)
 }
 
-func DecisionTree(d *Data) {
+func DecisionTree(d *Data) error {
 	f := d.flags
 	file := d.setup.dataFile
 	t := &d.tasks
@@ -71,7 +71,9 @@ func DecisionTree(d *Data) {
 	} else {
 		err := WriteJson(*t, file)
 		if err != nil {
-			fmt.Println(err)
+			return err
 		}
 	}
+
+	return nil
 }
