@@ -33,16 +33,8 @@ func SetFlags(s SetupFiles) (Flags, Config) {
 
 	flag.Parse()
 
-	flagSet := make(map[string]bool)
-	flag.Visit(func(f *flag.Flag) {
-		flagSet[f.Name] = true
-	})
-
-	//REMINDER TO MAKE SURE DEFAULT CONFIG FILE IS ACTIVATED IF IT EXISTS AND READ IN VALUES
 	_, err := toml.DecodeFile(flags.config, &c)
-	if err != nil {
-		c = Config{}
-	} else {
+	if err == nil {
 		flags.db = true
 	}
 
