@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-func SetFlags(s SetupFiles) (Flags, Config) {
+func SetFlags() (Flags, Config) {
 	var flags Flags
 	var c Config
 

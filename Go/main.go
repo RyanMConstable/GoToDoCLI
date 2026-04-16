@@ -5,7 +5,7 @@ func main() {
 	data := Data{}
 
 	Setup(&data)
-	data.flags, data.config = SetFlags(data.setup)
+	data.flags, data.config = SetFlags()
 
 	//err := LoadConfig(&data)
 
