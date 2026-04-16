@@ -18,6 +18,12 @@ func main() {
 		os.Exit(1)
 	}
 
+	err = IsDatabaseConfigured(&data)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
 	if data.flags.db {
 		data.tasks = UnmarshalPostgres(data.config)
 	} else {

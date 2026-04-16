@@ -22,3 +22,13 @@ func LoadConfig(d *Data) error {
 	return nil
 
 }
+
+func IsDatabaseConfigured(d *Data) error {
+	c := d.config
+
+	if (len(c.DB_HOST) + len(c.DB_USER) + len(c.DB_PASSWORD) + len(c.DB_PORT) + len(c.DB_NAME)) != 0 {
+		d.flags.db = true
+	}
+
+	return nil
+}
