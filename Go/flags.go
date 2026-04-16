@@ -5,9 +5,8 @@ import (
 	"fmt"
 )
 
-func SetFlags() (Flags, Config) {
+func SetFlags(d *Data) Flags {
 	var f Flags
-	var c Config
 
 	SetBoolFlags(&f.all, "A", "all", false, "Show all tasks")
 	SetStringFlags(&f.add, "a", "add", "", "Add a task")
@@ -31,14 +30,7 @@ func SetFlags() (Flags, Config) {
 
 	flag.Parse()
 
-	//if flags.config != "" {
-	//	_, err := toml.DecodeFile(flags.config, &c)
-	//	if err == nil {
-	//		s.confFile = flags.config
-	//	}
-	//}
-
-	return f, c
+	return f
 }
 
 func SetStringFlags(flagvalue *string, shortFlag string, longFlag string, defaultValue string, description string) {
