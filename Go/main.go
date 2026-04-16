@@ -7,6 +7,8 @@ func main() {
 	Setup(&data)
 	data.flags, data.config = SetFlags(data.setup)
 
+	//err := LoadConfig(&data)
+
 	if data.flags.db {
 		data.tasks = UnmarshalPostgres(data.config)
 	} else {
