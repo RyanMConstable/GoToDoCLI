@@ -69,6 +69,9 @@ func DecisionTree(d *Data) {
 	if f.db {
 		fmt.Println("Writing to database")
 	} else {
-		WriteJson(*t, file)
+		err := WriteJson(*t, file)
+		if err != nil {
+			fmt.Println(err)
+		}
 	}
 }

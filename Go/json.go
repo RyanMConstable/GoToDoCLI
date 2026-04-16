@@ -32,6 +32,7 @@ func ParseFile(file string) Tasks {
 func WriteJson(tasks Tasks, file string) error {
 	data, err := json.Marshal(tasks)
 	if err != nil {
+		fmt.Println(err)
 		return err
 	}
 	return os.WriteFile(file, data, 0644)
