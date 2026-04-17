@@ -24,7 +24,7 @@ type Task struct {
 	DueDate       *time.Time `json:"duedate"       db:"duedate"`
 	InProgress    bool       `json:"inprogress"    db:"inprogress"`
 	Stale         bool       `json:"stale"         db:"stale"`
-	Parent_ID     int        `json:"parent_id"     db:"parent_id"`
+	Parent_ID     *int       `json:"parent_id"     db:"parent_id"`
 }
 
 type Flags struct {

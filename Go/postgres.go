@@ -55,7 +55,7 @@ func AddTaskToPostgres(t Task, d Data) error {
         inprogress,
         stale,
 	parent_id
-    ) VALUES ($1,$2,$3,$4,$5,$6,$7)
+    ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)
 `,
 		t.Name,
 		t.Completed,
@@ -66,8 +66,10 @@ func AddTaskToPostgres(t Task, d Data) error {
 		t.Stale,
 		t.Parent_ID,
 	)
+
 	if err != nil {
 		return err
 	}
+
 	return nil
 }
