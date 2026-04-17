@@ -51,7 +51,10 @@ func DecisionTree(d *Data) error {
 	CheckStale(t)
 
 	if f.add != "" {
-		AddTask(d)
+		err := AddTask(d)
+		if err != nil {
+			return err
+		}
 	}
 
 	if f.completed != "" {

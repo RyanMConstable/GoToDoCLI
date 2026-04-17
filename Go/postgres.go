@@ -34,3 +34,7 @@ func UnmarshalPostgres(c Config) Tasks {
 
 	return Tasks{Tasks: tasks}
 }
+
+func AddTaskToPostgres(t Task, d Data) error {
+	return nil
+}

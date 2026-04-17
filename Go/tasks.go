@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-func AddTask(d *Data) {
+func AddTask(d *Data) error {
 	var newTask Task
 
 	t := &d.tasks
@@ -29,6 +29,13 @@ func AddTask(d *Data) {
 	newTask.Stale = false
 
 	t.Tasks = append(t.Tasks, newTask)
+
+	err := AddTaskToPostgres(newTask, *d)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func CompleteTask(tasks *Tasks, flags Flags) {
