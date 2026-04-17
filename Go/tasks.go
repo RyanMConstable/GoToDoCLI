@@ -8,24 +8,27 @@ import (
 	"time"
 )
 
-func AddTask(tasks *Tasks, flags Flags) {
+func AddTask(d *Data) {
 	var newTask Task
+
+	t := &d.tasks
+	f := d.flags
+
 	duedate := time.Now().Add(72 * time.Hour)
 
-	if flags.duedate != "" {
-		duedate, _ = time.Parse("2006-01-02", flags.duedate)
+	if f.duedate != "" {
+		duedate, _ = time.Parse("2006-01-02", f.duedate)
 	}
 
-	//TIME
 	currentTime := time.Now()
 
-	newTask.Name = flags.add
+	newTask.Name = f.add
 	newTask.DueDate = &duedate
 	newTask.DateCreated = &currentTime
 	newTask.InProgress = false
 	newTask.Stale = false
 
-	tasks.Tasks = append(tasks.Tasks, newTask)
+	t.Tasks = append(t.Tasks, newTask)
 }
 
 func CompleteTask(tasks *Tasks, flags Flags) {
