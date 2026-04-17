@@ -20,7 +20,7 @@ type Task struct {
 	Name          string     `json:"name"          db:"name"`
 	Completed     bool       `json:"completed"     db:"completed"`
 	DateCreated   *time.Time `json:"datecreated"   db:"datecreated"`
-	DateCompleted time.Time  `json:"datecompleted" db:"datecompleted"`
+	DateCompleted *time.Time `json:"datecompleted" db:"datecompleted"`
 	DueDate       *time.Time `json:"duedate"       db:"duedate"`
 	InProgress    bool       `json:"inprogress"    db:"inprogress"`
 	Stale         bool       `json:"stale"         db:"stale"`

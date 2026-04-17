@@ -38,7 +38,8 @@ func CompleteTask(tasks *Tasks, flags Flags) {
 	for i, value := range tasks.Tasks {
 		if name == value.Name {
 			tasks.Tasks[i].Completed = true
-			tasks.Tasks[i].DateCompleted = time.Now()
+			t := time.Now()
+			tasks.Tasks[i].DateCompleted = &t
 			break
 		}
 	}
