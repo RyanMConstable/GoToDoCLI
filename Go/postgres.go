@@ -34,14 +34,3 @@ func UnmarshalPostgres(c Config) Tasks {
 
 	return Tasks{Tasks: tasks}
 }
-
-func MarshalPostgres(c Config) error {
-	_, err := pgxpool.New(ctx, fmt.Sprintf("postgresql://%v:%v@%v:%v/%v", c.DB_USER, c.DB_PASSWORD, c.DB_HOST, c.DB_PORT, c.DB_NAME))
-
-	if err != nil {
-		return err
-	}
-
-	return nil
-
-}

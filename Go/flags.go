@@ -66,9 +66,7 @@ func DecisionTree(d *Data) error {
 		MarkTaskInProgress(t, f)
 	}
 
-	if f.db {
-		fmt.Println("Writing to database")
-	} else {
+	if !f.db {
 		err := WriteJson(*t, file)
 		if err != nil {
 			return err
