@@ -36,5 +36,38 @@ func UnmarshalPostgres(c Config) Tasks {
 }
 
 func AddTaskToPostgres(t Task, d Data) error {
+	c := d.config
+
+	pool, err := pgxpool.New(ctx, fmt.Sprintf("postgresql://%v:%v@%v:%v/%v", c.DB_USER, c.DB_PASSWORD, c.DB_HOST, c.DB_PORT, c.DB_NAME))
+
+	if err != nil {
+		return err
+	}
+	defer pool.Close()
+
+	_, err = pool.Exec(ctx, `
+    INSERT INTO todo (
+        name,
+        completed,
+        datecreated,
+        datecompleted,
+        duedate,
+        inprogress,
+        stale,
+	parent_id
+    ) VALUES ($1,$2,$3,$4,$5,$6,$7)
+`,
+		t.Name,
+		t.Completed,
+		t.DateCreated,
+		t.DateCompleted,
+		t.DueDate,
+		t.InProgress,
+		t.Stale,
+		t.Parent_ID,
+	)
+	if err != nil {
+		return err
+	}
 	return nil
 }

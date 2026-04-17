@@ -30,9 +30,11 @@ func AddTask(d *Data) error {
 
 	t.Tasks = append(t.Tasks, newTask)
 
-	err := AddTaskToPostgres(newTask, *d)
-	if err != nil {
-		return err
+	if d.flags.db {
+		err := AddTaskToPostgres(newTask, *d)
+		if err != nil {
+			return err
+		}
 	}
 
 	return nil
