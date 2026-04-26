@@ -40,22 +40,24 @@ func AddTask(d *Data) error {
 	return nil
 }
 
-func CompleteTask(t *Tasks, d *Data) {
+func CompleteTask(d *Data) error {
 	//Search by name first, if it can't find name search ID
-	name, err := SearchForTaskName(*tasks, flags.completed)
+	name, err := SearchForTaskName(d.tasks, d.flags.completed)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
 
-	for i, value := range tasks.Tasks {
+	for i, value := range d.tasks.Tasks {
 		if name == value.Name {
-			tasks.Tasks[i].Completed = true
+			d.tasks.Tasks[i].Completed = true
 			t := time.Now()
-			tasks.Tasks[i].DateCompleted = &t
+			d.tasks.Tasks[i].DateCompleted = &t
 			break
 		}
 	}
+
+	return nil
 
 }
 

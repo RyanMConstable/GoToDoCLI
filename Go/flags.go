@@ -58,7 +58,10 @@ func DecisionTree(d *Data) error {
 	}
 
 	if f.completed != "" {
-		CompleteTask(t, f)
+		err := CompleteTask(d)
+		if err != nil {
+			return err
+		}
 	}
 
 	if f.remove != "" {
