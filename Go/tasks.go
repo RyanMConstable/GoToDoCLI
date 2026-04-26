@@ -40,7 +40,8 @@ func AddTask(d *Data) error {
 	return nil
 }
 
-func CompleteTask(tasks *Tasks, flags Flags) {
+func CompleteTask(t *Tasks, d *Data) {
+	//Search by name first, if it can't find name search ID
 	name, err := SearchForTaskName(*tasks, flags.completed)
 	if err != nil {
 		fmt.Println(err)
