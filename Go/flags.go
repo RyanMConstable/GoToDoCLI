@@ -15,6 +15,7 @@ func SetFlags(d *Data) Flags {
 	SetStringFlags(&f.remove, "r", "remove", "", "Remove task by name")
 	SetStringFlags(&f.inprogress, "p", "in-progress", "", "Mark a task as in progress")
 	SetStringFlags(&f.config, "C", "config", "", "Set the path location for a config file")
+	SetStringFlags(&f.config, "V", "version", "", "Show version of ToDo application")
 
 	flag.Usage = func() {
 		fmt.Println("Usage of todo:")
@@ -26,6 +27,7 @@ func SetFlags(d *Data) Flags {
 		fmt.Println("  -remove,      -r  Remove a task by name")
 		fmt.Println("  -in-progress, -p  Mark a task in progress")
 		fmt.Println("  -config,      -C  Add a configuration file")
+		fmt.Println("  -version,     -V  Show version")
 	}
 
 	flag.Parse()
