@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"os"
 )
 
 func SetFlags(d *Data) Flags {
@@ -15,7 +16,7 @@ func SetFlags(d *Data) Flags {
 	SetStringFlags(&f.remove, "r", "remove", "", "Remove task by name")
 	SetStringFlags(&f.inprogress, "p", "in-progress", "", "Mark a task as in progress")
 	SetStringFlags(&f.config, "C", "config", "", "Set the path location for a config file")
-	SetStringFlags(&f.config, "V", "version", "", "Show version of ToDo application")
+	SetBoolFlags(&f.version, "V", "version", false, "Show version of ToDo application")
 
 	flag.Usage = func() {
 		fmt.Println("Usage of todo:")
@@ -51,6 +52,11 @@ func DecisionTree(d *Data) error {
 	t := &d.tasks
 
 	CheckStale(t)
+
+	if f.version {
+		fmt.Println(VERSION)
+		os.Exit(1)
+	}
 
 	if f.add != "" {
 		err := AddTask(d)
