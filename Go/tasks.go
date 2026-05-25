@@ -57,6 +57,13 @@ func CompleteTask(d *Data) error {
 		}
 	}
 
+	if d.flags.db {
+		err := CompleteTaskInPostgres(name, *d)
+		if err != nil {
+			return err
+		}
+	}
+
 	return nil
 
 }

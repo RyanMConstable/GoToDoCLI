@@ -74,6 +74,10 @@ func AddTaskToPostgres(t Task, d Data) error {
 	return nil
 }
 
+func CompleteTaskInPostgres(n string, d Data) error {
+	return nil
+}
+
 func UpdateOneColumn(t Task, d Data) error {
 	return nil
 }
