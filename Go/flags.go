@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-	"os"
 )
 
 func SetFlags(d *Data) Flags {
@@ -46,7 +45,7 @@ func SetBoolFlags(flagvalue *bool, shortFlag string, longFlag string, defaultVal
 	flag.BoolVar(flagvalue, longFlag, defaultValue, description)
 }
 
-func DecisionTree(d *Data) error {
+func DecisionTree(d *Data, c []string) error {
 	f := d.flags
 	file := d.setup.dataFile
 	t := &d.tasks
@@ -55,7 +54,7 @@ func DecisionTree(d *Data) error {
 
 	if f.version {
 		fmt.Println(VERSION)
-		os.Exit(1)
+		return nil
 	}
 
 	if f.add != "" {
@@ -86,6 +85,8 @@ func DecisionTree(d *Data) error {
 			return err
 		}
 	}
+
+	ShowTasks(*d, c)
 
 	return nil
 }

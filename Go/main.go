@@ -34,11 +34,9 @@ func main() {
 		data.tasks = ParseFile(data.setup.dataFile)
 	}
 
-	err = DecisionTree(&data)
+	err = DecisionTree(&data, column_names)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-
-	ShowTasks(data, column_names)
 }
