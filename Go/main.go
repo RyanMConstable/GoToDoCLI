@@ -5,6 +5,10 @@ import (
 	"os"
 )
 
+const (
+	VERSION = "BETA:0.0.0"
+)
+
 func main() {
 	column_names := []string{"Name", "Date Created", "Date Completed", "Due Date"}
 	data := Data{}
