@@ -93,8 +93,35 @@ func CompleteTaskInPostgres(n string, d Data) error {
 
 	//Now we need to update that row as complete
 	_, err = pool.Exec(ctx, `UPDATE todo SET completed = true, datecompleted = NOW() WHERE id = $1`, id)
+	if err != nil {
+		return err
+	}
 
 	return nil
+}
+
+func InProgressTaskInPostgres(n string, d Data) error {
+	c := d.config
+
+	pool, err := pgxpool.New(ctx, fmt.Sprintf("postgresql://%v:%v@%v:%v/%v", c.DB_USER, c.DB_PASSWORD, c.DB_HOST, c.DB_PORT, c.DB_NAME))
+	if err != nil {
+		return err
+	}
+	defer pool.Close()
+
+	var id string
+	err = pool.QueryRow(ctx, `SELECT id FROM todo WHERE name = $1`, n).Scan(&id)
+	if err != nil {
+		return err
+	}
+
+	_, err = pool.Exec(ctx, `UPDATE todo SET inprogress = true WHERE id = $1`, id)
+	if err != nil {
+		return err
+	}
+
+	return nil
+
 }
 
 func UpdateOneColumn(t Task, d Data) error {
