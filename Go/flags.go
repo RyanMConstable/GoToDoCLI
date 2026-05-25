@@ -76,7 +76,7 @@ func DecisionTree(d *Data, c []string) error {
 	}
 
 	if f.inprogress != "" {
-		MarkTaskInProgress(t, f)
+		MarkTaskInProgress(d)
 	}
 
 	if !f.db {

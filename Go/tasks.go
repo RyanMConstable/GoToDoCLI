@@ -77,23 +77,31 @@ func RemoveTask(tasks *Tasks, flags Flags) {
 	}
 }
 
-func MarkTaskInProgress(tasks *Tasks, flags Flags) {
-	name, err := SearchForTaskName(*tasks, flags.inprogress)
+func MarkTaskInProgress(d *Data) error {
+	name, err := SearchForTaskName(d.tasks, d.flags.inprogress)
 	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+		return err
 	}
 
-	for i, value := range tasks.Tasks {
+	for i, value := range d.tasks.Tasks {
 		if value.Name == name {
-			if tasks.Tasks[i].InProgress {
-				tasks.Tasks[i].InProgress = false
+			if d.tasks.Tasks[i].InProgress {
+				d.tasks.Tasks[i].InProgress = false
 			} else {
-				tasks.Tasks[i].InProgress = true
+				d.tasks.Tasks[i].InProgress = true
 			}
 			break
 		}
 	}
+
+	if d.flags.db {
+		err := InProgressTaskInPostgres(name, *d)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 func CheckStale(t *Tasks) {
